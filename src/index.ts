@@ -33,14 +33,21 @@ app.on("ready", () => {
 		height: 480,
 		minWidth: 640,
 		minHeight: 480,
+		title: 'Bitcoin parser',
+		icon: path.join(__dirname, './assets/api_FILL0_wght400_GRAD0_opsz48.png'),
+		skipTaskbar: false,
 		frame: false,
-		focusable: false,
+		focusable: true,
+		center: true,
+		backgroundMaterial: 'mica',
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
 			preload: path.join(__dirname, "preload.js")
 		}
 	});
+
+	mainWindow.show();
 
 	//Menu.setApplicationMenu(null);
 

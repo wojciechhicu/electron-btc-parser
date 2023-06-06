@@ -1,6 +1,6 @@
 {
-  "name": "electron",
-  "productName": "electron",
+  "name": "bitcoin-parser",
+  "productName": "Bitcoin parser",
   "version": "0.0.1",
   "description": "My Electron application description",
   "main": "./dist/index.js",
