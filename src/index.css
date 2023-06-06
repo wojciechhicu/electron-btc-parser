@@ -1,7 +1,64 @@
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
+@font-face {
+	font-family: 'Calibri';
+	src: url('./assets/fonts/CALIBRI.TTF') format('truetype');
+}
+body,html {
+	padding: 0;
+	margin: 0;
+	background-color: #D6D8DF;
+	font-family: 'Calibri', sans-serif;
+}
+.top-nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 25px;
+	background-color: #f3f3f5;
+	-webkit-app-region: drag;
+}
+.nav-btn{
+	height: 100%;
+	width: 41px;
+	display: flex;
+	border: none;
+	transition: .3s;
+	cursor: pointer;
+	justify-content: center;
+	-webkit-app-region: no-drag;
+}
+.nav-btn:hover {
+	background-color: #D6D8DF;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.nav-btn svg {
+	max-height: 100%;
+}
+.close-btn:hover{
+	background-color: #FF0000;
+}
+.close-btn:hover svg {
+	fill: white
+}
+.max-window{
+	transform: scale(0.8);
+}
+.min-window{
+	transform: translateY(-25%);
+}
+.hide {
+	display: none !important;
+}
+.bradning{
+	display: inline-flex;
+	align-items: center;
+	height: 25px;
+}
+.logo svg {
+	height: 22px;
+	transform: translateY(2px);
+	fill: #F0B90B;
+}
+.wrapper{
+	display: inline-flex;
+	height: 25px;
 }

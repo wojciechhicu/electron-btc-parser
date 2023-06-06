@@ -5,7 +5,7 @@
   "description": "My Electron application description",
   "main": "./dist/index.js",
   "scripts": {
-    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css dist/",
+    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/assets/** dist/",
     "start": "tsc && npm run copy-files && electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
