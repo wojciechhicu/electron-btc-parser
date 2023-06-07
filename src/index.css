@@ -5,32 +5,37 @@
 body,html {
 	padding: 0;
 	margin: 0;
-	background-color: #D6D8DF;
+	height: 100%;
+	width: 100%;
 	font-family: 'Calibri', sans-serif;
 }
 .top-nav {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	height: 25px;
-	background-color: #f3f3f5;
+	height: 30px;
+	background-color: #2A313E;
 	-webkit-app-region: drag;
+	color: white;
 }
 .nav-btn{
 	height: 100%;
 	width: 41px;
 	display: flex;
+	padding: 2px;
 	border: none;
+	background-color: #2A313E;
 	transition: background .3s, box-shadow .3s;
 	cursor: pointer;
 	justify-content: center;
 	-webkit-app-region: no-drag;
 }
 .nav-btn:hover {
-	background-color: #D6D8DF;
+	background-color: #353d4d;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .nav-btn svg {
+	fill: #b9bdc4;
 	max-height: 100%;
 }
 .close-btn:hover{
@@ -51,7 +56,8 @@ body,html {
 .bradning{
 	display: inline-flex;
 	align-items: center;
-	height: 25px;
+	height: 30px;
+	padding: 2px;
 }
 .logo svg {
 	height: 22px;
@@ -60,5 +66,10 @@ body,html {
 }
 .wrapper{
 	display: inline-flex;
-	height: 25px;
+	height: 30px;
+}
+.content{
+	background-color: #4F565F;
+	width: 100%;
+	height: calc(100% - 30px);
 }
