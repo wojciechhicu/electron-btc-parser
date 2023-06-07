@@ -2,12 +2,15 @@
 	font-family: 'Calibri';
 	src: url('./assets/fonts/CALIBRI.TTF') format('truetype');
 }
-body,html {
-	padding: 0;
+*{
 	margin: 0;
+	padding: 0;
+}
+body,html {
 	height: 100%;
 	width: 100%;
 	font-family: 'Calibri', sans-serif;
+
 }
 .top-nav {
 	display: flex;
@@ -31,6 +34,11 @@ body,html {
 	-webkit-app-region: no-drag;
 }
 .nav-btn:hover {
+	background-color: #353d4d;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.nav-btn:focus {
+	outline: none;
 	background-color: #353d4d;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -72,4 +80,5 @@ body,html {
 	background-color: #4F565F;
 	width: 100%;
 	height: calc(100% - 30px);
+	color: white;
 }
