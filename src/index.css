@@ -5,12 +5,13 @@
 *{
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
 }
 body,html {
 	height: 100%;
 	width: 100%;
 	font-family: 'Calibri', sans-serif;
-
+	overflow: hidden;
 }
 .top-nav {
 	display: flex;
@@ -49,7 +50,13 @@ body,html {
 .close-btn:hover{
 	background-color: #FF0000;
 }
+.close-btn:focus{
+	background-color: #FF0000;
+}
 .close-btn:hover svg {
+	fill: white
+}
+.close-btn:focus svg {
 	fill: white
 }
 .max-window{

@@ -1,5 +1,8 @@
 import { app, BrowserWindow, Menu, ipcMain } from "electron";
 import * as path from "path";
+import { readFileSync } from "fs";
+import { appConfig } from "./data/config.interface";
+import { cpus } from 'os';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -37,6 +40,7 @@ app.on("ready", () => {
 		icon: path.join(__dirname, './assets/api_FILL0_wght400_GRAD0_opsz48.png'),
 		skipTaskbar: false,
 		frame: false,
+		
 		focusable: true,
 		center: true,
 		backgroundMaterial: 'mica',
@@ -49,18 +53,28 @@ app.on("ready", () => {
 
 	mainWindow.show();
 
-	//Menu.setApplicationMenu(null);
-
 	mainWindow.loadFile(path.join(__dirname, "index.html"));
+
+	//check how many cpu's user have. Min is 4 to work
+	const CPUS = cpus().length
+	ipcMain.on('numThreads', (event, arg) =>{
+		event.sender.send("numThreadsRes", CPUS)
+	});
 
 	//mainWindow.webContents.openDevTools();
 
 	ipcMain.on("minimize", () => {
-		mainWindow.minimize();
+		mainWindow.minimize()
 	});
 
 	ipcMain.on("maximize", () => {
-		mainWindow.setFullScreen(true);
+		mainWindow.setFullScreen(true)
+	});
+
+	ipcMain.on("checkConfig", (event, arg) => {
+		const configFile = readFileSync(path.join(__dirname, './data/config.json'), 'utf8');
+		const parsedConfig: appConfig = JSON.parse(configFile);
+		event.sender.send("checkConfigResponse", parsedConfig);
 	});
 
 	ipcMain.on("exitMaxWindow", () => {
