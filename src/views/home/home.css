@@ -143,3 +143,14 @@ svg {
 .margin {
 	margin-left: 5px;
 }
+.footerLink{
+        text-decoration: none;
+        color: #73777c;
+	line-height: 1;
+	font-weight: bolder;
+        transition: .3s;
+}
+.footerLink:hover,
+.footerLink:focus {
+        text-decoration: underline;
+}
