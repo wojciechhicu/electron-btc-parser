@@ -3,5 +3,5 @@
         "parsedBlocksDirPath": "",
         "orphanBlocksPath": "",
         "lastBlockFilePath": "",
-        "parsedBlocksFilesDirPath": []
+        "parsedBlocksFiles": []
 }

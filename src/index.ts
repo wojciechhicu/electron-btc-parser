@@ -1,8 +1,8 @@
-import { app, BrowserWindow, Menu, ipcMain } from "electron";
+import { app, BrowserWindow, Menu, ipcMain, dialog } from "electron";
 import * as path from "path";
 import { readFileSync } from "fs";
 import { appConfig } from "./data/config.interface";
-import { cpus } from 'os';
+import { cpus } from "os";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -36,14 +36,17 @@ app.on("ready", () => {
 		height: 480,
 		minWidth: 640,
 		minHeight: 480,
-		title: 'Bitcoin parser',
-		icon: path.join(__dirname, './assets/api_FILL0_wght400_GRAD0_opsz48.png'),
+		title: "Bitcoin parser",
+		icon: path.join(
+			__dirname,
+			"./assets/api_FILL0_wght400_GRAD0_opsz48.png"
+		),
 		skipTaskbar: false,
 		frame: false,
-		
+
 		focusable: true,
 		center: true,
-		backgroundMaterial: 'mica',
+		backgroundMaterial: "mica",
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
@@ -56,23 +59,26 @@ app.on("ready", () => {
 	mainWindow.loadFile(path.join(__dirname, "index.html"));
 
 	//check how many cpu's user have. Min is 4 to work
-	const CPUS = cpus().length
-	ipcMain.on('numThreads', (event, arg) =>{
-		event.sender.send("numThreadsRes", CPUS)
+	const CPUS = cpus().length;
+	ipcMain.on("numThreads", (event, arg) => {
+		event.sender.send("numThreadsRes", CPUS);
 	});
 
-	//mainWindow.webContents.openDevTools();
+	mainWindow.webContents.openDevTools();
 
 	ipcMain.on("minimize", () => {
-		mainWindow.minimize()
+		mainWindow.minimize();
 	});
 
 	ipcMain.on("maximize", () => {
-		mainWindow.setFullScreen(true)
+		mainWindow.setFullScreen(true);
 	});
 
 	ipcMain.on("checkConfig", (event, arg) => {
-		const configFile = readFileSync(path.join(__dirname, './data/config.json'), 'utf8');
+		const configFile = readFileSync(
+			path.join(__dirname, "./data/config.json"),
+			"utf8"
+		);
 		const parsedConfig: appConfig = JSON.parse(configFile);
 		event.sender.send("checkConfigResponse", parsedConfig);
 	});
@@ -83,6 +89,42 @@ app.on("ready", () => {
 
 	ipcMain.on("closeWindow", () => {
 		app.quit();
+	});
+
+	ipcMain.on("choose-directory-blk", (event) => {
+		dialog.showOpenDialog({
+			properties: ["openDirectory"]
+		})
+			.then((result) => {
+				if (
+					!result.canceled &&
+					result.filePaths.length > 0
+				) {
+					const folderPath = result.filePaths[0];
+					event.reply("folderPath-blk", folderPath);
+				}
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	});
+
+	ipcMain.on("choose-directory-parsed-blk", (event) => {
+		dialog.showOpenDialog({
+			properties: ["openDirectory"]
+		})
+			.then((result) => {
+				if (
+					!result.canceled &&
+					result.filePaths.length > 0
+				) {
+					const folderPath = result.filePaths[0];
+					event.reply("folderPath-parsed-blk", folderPath);
+				}
+			})
+			.catch((err) => {
+				console.error(err);
+			});
 	});
 });
 
