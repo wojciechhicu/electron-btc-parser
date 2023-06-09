@@ -84,8 +84,6 @@ body,html {
 	height: 30px;
 }
 .content{
-	background-color: #4F565F;
 	width: 100%;
 	height: calc(100% - 30px);
-	color: white;
 }

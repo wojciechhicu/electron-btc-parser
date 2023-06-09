@@ -32,10 +32,10 @@ const createWindow = () => {
 app.on("ready", () => {
 	// Create the browser window.
 	const mainWindow: BrowserWindow = new BrowserWindow({
-		width: 640,
-		height: 480,
-		minWidth: 640,
-		minHeight: 480,
+		width: 1110,
+		height: 650,
+		minWidth: 1110,
+		minHeight: 650,
 		title: "Bitcoin parser",
 		icon: path.join(
 			__dirname,
@@ -64,7 +64,8 @@ app.on("ready", () => {
 		event.sender.send("numThreadsRes", CPUS);
 	});
 
-	mainWindow.webContents.openDevTools();
+	mainWindow.webContents.setAudioMuted(true)
+	//mainWindow.webContents.openDevTools();
 
 	ipcMain.on("minimize", () => {
 		mainWindow.minimize();
