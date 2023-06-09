@@ -47,7 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
 			"checkConfigResponse",
 			(event, arg: appConfig) => {
 				arg.blocksDirPath === "" ||
-				arg.parsedBlocksDirPath === ""
+				arg.parsedBlocksDirPath === "" ||
+                                (arg.blocksDirPath === "" &&
+				arg.parsedBlocksDirPath === "")
 					? navigateTo("./views/home/home")
 					: navigateTo("./views/parser/parser");
 			}
@@ -90,23 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				});
 		} else {
 			alert("Frame is null");
-		}
-	}
-
-	async function chooseDirectory() {
-		try {
-			const sciezkaDoFolderu = await ipcRenderer.invoke(
-				"choose-directory"
-			);
-			if (sciezkaDoFolderu) {
-				console.log(
-					"Wybrano folder:",
-					sciezkaDoFolderu
-				);
-				
-			}
-		} catch (error) {
-			console.error(error);
 		}
 	}
 });

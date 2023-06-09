@@ -1,6 +1,6 @@
 import { app, BrowserWindow, Menu, ipcMain, dialog } from "electron";
 import * as path from "path";
-import { readFileSync } from "fs";
+import { readFileSync, writeFileSync, writeFile } from "fs";
 import { appConfig } from "./data/config.interface";
 import { cpus } from "os";
 
@@ -43,15 +43,15 @@ app.on("ready", () => {
 		),
 		skipTaskbar: false,
 		frame: false,
-
 		focusable: true,
 		center: true,
 		backgroundMaterial: "mica",
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
-			preload: path.join(__dirname, "preload.js")
-		}
+			preload: path.join(__dirname, "preload.js"),
+		},
+		
 	});
 
 	mainWindow.show();
@@ -101,11 +101,28 @@ app.on("ready", () => {
 					result.filePaths.length > 0
 				) {
 					const folderPath = result.filePaths[0];
-					event.reply("folderPath-blk", folderPath);
+					const configFile = readFileSync(path.join(__dirname, "./data/config.json"), 'utf8')
+					const parsedConfig: appConfig = JSON.parse(configFile);
+
+					parsedConfig.blocksDirPath = folderPath.replace(/\\/g, "/");
+					const stringConfig = JSON.stringify(parsedConfig, null, 2);
+					writeFileSync(path.join(__dirname, "./data/config.json"), stringConfig, 'utf8')
+
+					dialog.showMessageBox(mainWindow, {
+						type: 'info',
+						title: 'Success',
+						message: 'Blocks dir saved',
+						buttons: ['OK']
+					})
 				}
 			})
-			.catch((err) => {
-				console.error(err);
+			.catch((err: any) => {
+				dialog.showMessageBox({
+					type: 'error',
+					title: 'Error',
+					message: String(err),
+					buttons: ['OK']
+				})
 			});
 	});
 
@@ -119,11 +136,30 @@ app.on("ready", () => {
 					result.filePaths.length > 0
 				) {
 					const folderPath = result.filePaths[0];
-					event.reply("folderPath-parsed-blk", folderPath);
+					const configFile = readFileSync(path.join(__dirname, "./data/config.json"), 'utf8')
+					const parsedConfig: appConfig = JSON.parse(configFile);
+					const directory = folderPath.replace(/\\/g, "/");
+					parsedConfig.parsedBlocksDirPath = directory;
+					parsedConfig.orphanBlocksPath = directory;
+					parsedConfig.lastBlockFilePath = directory;
+					const stringConfig = JSON.stringify(parsedConfig, null, 2);
+					writeFileSync(path.join(__dirname, "./data/config.json"), stringConfig, 'utf8')
+
+					dialog.showMessageBox(mainWindow, {
+						type: 'info',
+						title: 'Success',
+						message: 'Parsed blocks dir saved',
+						buttons: ['OK']
+					})
 				}
 			})
-			.catch((err) => {
-				console.error(err);
+			.catch((err: any) => {
+				dialog.showMessageBox({
+					type: 'error',
+					title: 'Error',
+					message: String(err),
+					buttons: ['OK']
+				})
 			});
 	});
 });
