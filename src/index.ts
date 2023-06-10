@@ -92,6 +92,10 @@ app.on("ready", () => {
 		app.quit();
 	});
 
+	ipcMain.on("restart", ()=>{
+		mainWindow.reload()
+	})
+
 	ipcMain.on("choose-directory-blk", (event) => {
 		dialog.showOpenDialog({
 			properties: ["openDirectory"]
@@ -114,6 +118,8 @@ app.on("ready", () => {
 						title: 'Success',
 						message: 'Blocks dir saved',
 						buttons: ['OK']
+					}).then((v)=>{
+						event.sender.send('pickedBlkDirectory', parsedConfig.blocksDirPath)
 					})
 				}
 			})
@@ -151,6 +157,8 @@ app.on("ready", () => {
 						title: 'Success',
 						message: 'Parsed blocks dir saved',
 						buttons: ['OK']
+					}).then((v)=>{
+						event.sender.send('pickedParsedBlkDirectory', parsedConfig.parsedBlocksDirPath)
 					})
 				}
 			})

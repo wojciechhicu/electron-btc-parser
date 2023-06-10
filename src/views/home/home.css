@@ -7,28 +7,25 @@
 	width: 100%;
 	height: calc(100% - 150px);
 	box-sizing: border-box;
-	background-color: white;
-	border-bottom-left-radius: 10%;
-	border-bottom-right-radius: 10%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	background-color: #111111;
 }
 .form {
-	width: 500px;
-	aspect-ratio: 16 / 9;
-	border-radius: 10px;
+	width: 100%;
+	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 	position: relative;
-	background-color: #111111;
+	background-color: white;
 	background-repeat: no-repeat;
+	background-color: #111111;
 	background-size: cover;
 	background-position: 50% 50%;
 	margin: 0;
-	font: normal 75% Arial, Helvetica, sans-serif;
+	z-index: 2;
+	border-bottom-left-radius: 10%;
+	border-bottom-right-radius: 10%;
 }
 
 canvas {
@@ -38,37 +35,131 @@ canvas {
 	display: block;
 	left: 0;
 	top: 0;
+	border-bottom-left-radius: 10%;
+	border-bottom-right-radius: 10%;
+	z-index: -1;
+}
+.InputContainer {
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #111111;
 	border-radius: 10px;
+	cursor: pointer;
+	padding-left: 15px;
+
+	margin: 10px;
 }
 
-.inputWrapper {
-	display: block;
-	height: 30px;
-	width: 100%;
-	box-sizing: border-box;
-	z-index: 2;
-}
 .input {
-	display: inline-block;
-	height: 30px;
-	width: 90%;
-	outline: none;
+	width: 340px;
+	height: 100%;
 	border: none;
-	box-sizing: border-box;
+	outline: none;
+	font-size: 0.9em;
+	background-color: #111111;
+	color: white;
 }
-.fileBtn {
-	display: inline-block;
-	height: 30px;
-	border: none;
-	outline: none;
-	width: 9%;
+.micButton:hover::after {
+	content: attr(data-title);
+	position: absolute;
+	left: 75px;
+	top: -18px;
+	background-color: #111111;
+	border-radius: 5px;
 	box-sizing: border-box;
+	color: aliceblue;
+	width: 150px;
+	height: 75px;
+	word-wrap: break-word;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.border {
+	height: 40%;
+	width: 1.3px;
+	background-color: rgb(223, 223, 223);
+}
+
+.micIcon {
+	width: 32px;
+}
+
+::placeholder {
+	color: white;
+}
+.micButton {
+	padding: 0px 15px 0px 12px;
+	border: none;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	background-color: #111111;
+	height: 40px;
+	cursor: pointer;
+	transition-duration: 0.3s;
+	position: relative;
+}
+
+.searchIcon path {
+	fill: rgb(114, 114, 114);
+}
+
+.micIcon path {
+	fill: white;
+}
+
+.micButton:hover {
+	background-color: #504f4f;
+	transition-duration: 0.3s;
+}
+
+
+.submit {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: inherit;
+	font-weight: 500;
+	margin-top: 10px;
+	font-size: 17px;
+	height: 40px;
+	box-sizing: border-box;
+	padding: 0.8em 1.3em 0.8em 0.9em;
+	color: white;
+	background: #ad5389;
+	background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+	border: none;
+	letter-spacing: 0.05em;
+	border-radius: 10px;
+	cursor: pointer;
+	width: 418.3px;
+
+}
+
+.submit svg {
+	margin-right: 3px;
+	transform: rotate(30deg);
+	transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.submit span {
+	transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.submit:hover svg {
+	transform: translateX(5px) rotate(90deg);
+}
+
+.submit:hover span {
+	transform: translateX(7px);
 }
 
 .footer {
 	height: 150px;
 	display: flex;
-
 	color: rgba(255, 255, 255, 0.85);
 	font-size: 12px;
 	justify-content: center;
@@ -84,6 +175,15 @@ canvas {
 	width: 25%;
 	transform: translate(25px, 20px);
 	box-sizing: border-box;
+}
+.footer-logo svg {
+	fill: rgb(214, 198, 198);
+	width: 18px;
+	height: 18px;
+	-webkit-font-smoothing: antialiased;
+}
+.footer-logo svg:hover {
+	fill: white;
 }
 .json-key {
 	color: rgb(117, 191, 255);

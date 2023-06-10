@@ -1,5 +1,4 @@
 import { ipcRenderer } from "electron";
-import { appConfig } from "../../data/config.interface";
 import { tsParticles } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
 import { loadLinksPreset } from "tsparticles-preset-links";
@@ -9,6 +8,10 @@ document.getElementById("chooseBlkFiles")?.addEventListener(
 	chooseDirectory
 );
 
+const pickedBlkdir = document.getElementById('input1') as HTMLInputElement;
+const pickedParsedBlkdir = document.getElementById('input2') as HTMLInputElement;
+const submit = document.getElementById('submit-form') as HTMLButtonElement;
+submit.addEventListener('click', submitFunction)
 document.getElementById("chooseParsedBlkFiles")?.addEventListener(
 	"click",
 	chooseParsedDirectory
@@ -22,6 +25,15 @@ async function chooseParsedDirectory() {
 	ipcRenderer.send("choose-directory-parsed-blk");
 }
 
+async function submitFunction(){
+	if(pickedBlkdir.value !== '' && pickedParsedBlkdir.value !== ''){
+		ipcRenderer.send("restart");
+	} else {
+		alert("Provide full data");
+	}
+	
+}
+
 particles();
 
 async function particles() {
@@ -29,17 +41,22 @@ async function particles() {
 	await loadLinksPreset(tsParticles);
 	tsParticles.load("tsparticles", {
 		fpsLimit: 60,
+		background: {
+			color: {
+				value: '#0d47a1'
+			}
+		},
 		fullScreen: false,
 		particles: {
 			number: {
-				value: 160,
+				value: 80,
 				density: {
 					enable: true,
 					value_area: 800
 				}
 			},
 			color: {
-				value: "#ff0000",
+				value: "#ffffff",
 				animation: {
 					enable: true,
 					speed: 20,
@@ -54,11 +71,6 @@ async function particles() {
 				},
 				polygon: {
 					nb_sides: 5
-				},
-				image: {
-					src: "https://cdn.matteobruni.it/images/particles/github.svg",
-					width: 100,
-					height: 100
 				}
 			},
 			opacity: {
@@ -110,3 +122,15 @@ async function particles() {
 		retina_detect: true,
 	});
 }
+
+ipcRenderer.on('pickedBlkDirectory', (ev, arg)=>{
+	if(pickedBlkdir !== null){
+		pickedBlkdir.value = arg;
+	}
+})
+
+ipcRenderer.on('pickedParsedBlkDirectory', (ev, arg)=>{
+	if(pickedParsedBlkdir !== null){
+		pickedParsedBlkdir.value = arg;
+	}
+})
