@@ -14,12 +14,14 @@
 		"types": ["electron", "node"],
 		"allowJs": true
 	},
-	"include":  [
+	"include": [
 		"src/**/*.html",
 		"src/**/*.ts",
 		"src/**/*.css",
 		"src/**/*.js",
-		"src/data/config.json"
-	      ],
+		"src/data/config.json",
+		"node_modules/particles.js/particle-js.d.ts",
+		"src/views/home/particle.json"
+	],
 	"exclude": ["node_modules", "**/*.spec.ts"]
 }

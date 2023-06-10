@@ -1,51 +1,15 @@
 <div class="bg-wrapper">
 	<div class="config">
-		<div class="section">
-			<button id="chooseBlkFiles" class="settings-btn" data-tooltip="Select the folder where the blk*.dat files are located.">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					height="24px"
-					viewBox="0 0 24 24"
-					width="24px"
-					fill="#000000"
-				>
-					<path d="M0 0h24v24H0z" fill="none" />
-					<path
-						d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"
-					/>
-				</svg>
-			</button>
-			<div class="title">Blocks</div>
-		</div>
-		<div class="arrow-Container">
-			<div class="arrow">
-				<span></span>
-				<span></span>
-				<span></span>
+		<div class="form" id="tsparticles">
+			<div class="inputWrapper">
+				<input class="input" type="text" placeholder="Select the folder where the blk*.dat files are located." disabled>
+				<button id="chooseBlkFiles" class="fileBtn"></button>
 			</div>
-		</div>
-		<div class="section">
-			<button id="chooseParsedBlkFiles" class="settings-btn" data-tooltip="Choose the folder where the converted .json files will be stored.">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					enable-background="new 0 0 24 24"
-					height="24px"
-					viewBox="0 0 24 24"
-					width="24px"
-					fill="#000000"
-				>
-					<rect
-						fill="none"
-						height="24"
-						width="24"
-						y="0"
-					/>
-					<path
-						d="M19.97,6.43L12,2L4.03,6.43L9.1,9.24C9.83,8.48,10.86,8,12,8s2.17,0.48,2.9,1.24L19.97,6.43z M10,12c0-1.1,0.9-2,2-2 s2,0.9,2,2s-0.9,2-2,2S10,13.1,10,12z M11,21.44L3,17V8.14l5.13,2.85C8.04,11.31,8,11.65,8,12c0,1.86,1.27,3.43,3,3.87V21.44z M13,21.44v-5.57c1.73-0.44,3-2.01,3-3.87c0-0.35-0.04-0.69-0.13-1.01L21,8.14L21,17L13,21.44z"
-					/>
-				</svg>
-			</button>
-			<div class="title title2">Parsed Blocks</div>
+			
+			<div class="inputWrapper">
+				<input class="input" type="text" placeholder="Choose the folder where the converted .json files will be stored." disabled>
+				<button id="chooseParsedBlkFiles" class="fileBtn"></button>
+			</div>
 		</div>
 	</div>
 	<div class="footer">
