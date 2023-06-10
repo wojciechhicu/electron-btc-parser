@@ -1,15 +1,21 @@
+/* Wrapper styles */
+
 .bg-wrapper {
 	background-color: #111111;
 	height: 100%;
 	width: 100%;
 }
+
+/* Config section styles */
+
 .config {
 	width: 100%;
 	height: calc(100% - 150px);
 	box-sizing: border-box;
 	background-color: #111111;
 }
-.form {
+
+.config .form {
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -17,9 +23,8 @@
 	align-items: center;
 	flex-direction: column;
 	position: relative;
-	background-color: white;
-	background-repeat: no-repeat;
 	background-color: #111111;
+	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 50% 50%;
 	margin: 0;
@@ -28,9 +33,10 @@
 	border-bottom-right-radius: 10%;
 }
 
-canvas {
+.config canvas {
 	width: 100%;
 	height: 100%;
+	background-color: #111111;
 	position: absolute;
 	display: block;
 	left: 0;
@@ -39,7 +45,8 @@ canvas {
 	border-bottom-right-radius: 10%;
 	z-index: -1;
 }
-.InputContainer {
+
+.config .InputContainer {
 	height: 40px;
 	display: flex;
 	align-items: center;
@@ -48,11 +55,10 @@ canvas {
 	border-radius: 10px;
 	cursor: pointer;
 	padding-left: 15px;
-
 	margin: 10px;
 }
 
-.input {
+.config .input {
 	width: 340px;
 	height: 100%;
 	border: none;
@@ -61,7 +67,8 @@ canvas {
 	background-color: #111111;
 	color: white;
 }
-.micButton:hover::after {
+
+.config .micButton:hover::after {
 	content: attr(data-title);
 	position: absolute;
 	left: 75px;
@@ -78,20 +85,22 @@ canvas {
 	align-items: center;
 	justify-content: center;
 }
-.border {
+
+.config .border {
 	height: 40%;
 	width: 1.3px;
 	background-color: rgb(223, 223, 223);
 }
 
-.micIcon {
+.config .micIcon {
 	width: 32px;
 }
 
-::placeholder {
+.config ::placeholder {
 	color: white;
 }
-.micButton {
+
+.config .micButton {
 	padding: 0px 15px 0px 12px;
 	border: none;
 	border-top-right-radius: 10px;
@@ -103,21 +112,20 @@ canvas {
 	position: relative;
 }
 
-.searchIcon path {
+.config .searchIcon path {
 	fill: rgb(114, 114, 114);
 }
 
-.micIcon path {
+.config .micIcon path {
 	fill: white;
 }
 
-.micButton:hover {
+.config .micButton:hover {
 	background-color: #504f4f;
 	transition-duration: 0.3s;
 }
 
-
-.submit {
+.config .submit {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -136,67 +144,75 @@ canvas {
 	border-radius: 10px;
 	cursor: pointer;
 	width: 418.3px;
-
 }
 
-.submit svg {
+.config .submit svg {
 	margin-right: 3px;
 	transform: rotate(30deg);
 	transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-.submit span {
+.config .submit span {
 	transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-.submit:hover svg {
+.config .submit:hover svg {
 	transform: translateX(5px) rotate(90deg);
 }
 
-.submit:hover span {
+.config .submit:hover span {
 	transform: translateX(7px);
 }
+
+/* Footer styles */
 
 .footer {
 	height: 150px;
 	display: flex;
+	padding: 20px 20px 0 20px;
 	color: rgba(255, 255, 255, 0.85);
 	font-size: 12px;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: baseline;
 	width: 100%;
 	box-sizing: border-box;
 	-webkit-font-smoothing: antialiased;
 }
 
-.footer-section {
+footer .footer-section {
 	display: block;
 	font-family: "Courier New", Courier, monospace;
 	width: 25%;
-	transform: translate(25px, 20px);
 	box-sizing: border-box;
 }
-.footer-logo svg {
+
+.footer .footer-logo svg {
 	fill: rgb(214, 198, 198);
 	width: 18px;
 	height: 18px;
 	-webkit-font-smoothing: antialiased;
 }
-.footer-logo svg:hover {
+
+.footer .footer-logo svg:hover {
+	transition: .3s;
 	fill: white;
 }
-.json-key {
+
+.footer .json-key {
 	color: rgb(117, 191, 255);
 }
-.json-value {
+
+.footer .json-value {
 	color: rgb(255, 125, 233);
 }
-.spacer {
+
+.footer .spacer {
 	width: 32px;
 	height: 1px;
 	content: "";
 	margin-left: 32px;
 }
-.footerLink {
+
+.footer .footerLink {
 	color: rgb(255, 125, 233);
 }

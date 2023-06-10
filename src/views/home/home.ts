@@ -3,47 +3,60 @@ import { tsParticles } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
 import { loadLinksPreset } from "tsparticles-preset-links";
 
+// Event listener for choosing block files directory
 document.getElementById("chooseBlkFiles")?.addEventListener(
 	"click",
 	chooseDirectory
 );
 
-const pickedBlkdir = document.getElementById('input1') as HTMLInputElement;
-const pickedParsedBlkdir = document.getElementById('input2') as HTMLInputElement;
-const submit = document.getElementById('submit-form') as HTMLButtonElement;
-submit.addEventListener('click', submitFunction)
+// Element references
+const pickedBlkdir = document.getElementById("input1") as HTMLInputElement;
+const pickedParsedBlkdir = document.getElementById(
+	"input2"
+) as HTMLInputElement;
+const submit = document.getElementById("submit-form") as HTMLButtonElement;
+
+// Event listener for form submission
+submit.addEventListener("click", submitFunction);
+
+// Event listener for choosing parsed block files directory
 document.getElementById("chooseParsedBlkFiles")?.addEventListener(
 	"click",
 	chooseParsedDirectory
 );
 
+// Function for choosing block files directory
 async function chooseDirectory() {
 	ipcRenderer.send("choose-directory-blk");
 }
 
+// Function for choosing parsed block files directory
 async function chooseParsedDirectory() {
 	ipcRenderer.send("choose-directory-parsed-blk");
 }
 
-async function submitFunction(){
-	if(pickedBlkdir.value !== '' && pickedParsedBlkdir.value !== ''){
+// Function for form submission
+async function submitFunction() {
+	if (pickedBlkdir.value !== "" && pickedParsedBlkdir.value !== "") {
 		ipcRenderer.send("restart");
 	} else {
-		alert("Provide full data");
+		ipcRenderer.send("submit-error")
 	}
-	
 }
 
+// Initialize particles
 particles();
 
+// Load particles configuration
 async function particles() {
 	await loadFull(tsParticles);
 	await loadLinksPreset(tsParticles);
+
 	tsParticles.load("tsparticles", {
 		fpsLimit: 60,
 		background: {
 			color: {
-				value: '#0d47a1'
+				value: "#0d47a1"
 			}
 		},
 		fullScreen: false,
@@ -119,18 +132,20 @@ async function particles() {
 				}
 			}
 		},
-		retina_detect: true,
+		retina_detect: true
 	});
 }
 
-ipcRenderer.on('pickedBlkDirectory', (ev, arg)=>{
-	if(pickedBlkdir !== null){
+// Event listener for receiving picked block directory path
+ipcRenderer.on("pickedBlkDirectory", (ev, arg) => {
+	if (pickedBlkdir !== null) {
 		pickedBlkdir.value = arg;
 	}
-})
+});
 
-ipcRenderer.on('pickedParsedBlkDirectory', (ev, arg)=>{
-	if(pickedParsedBlkdir !== null){
+// Event listener for receiving picked parsed block directory path
+ipcRenderer.on("pickedParsedBlkDirectory", (ev, arg) => {
+	if (pickedParsedBlkdir !== null) {
 		pickedParsedBlkdir.value = arg;
 	}
-})
+});
