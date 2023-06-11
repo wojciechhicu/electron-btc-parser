@@ -1,5 +1,8 @@
 import { ipcRenderer } from "electron";
 import { iSystemInfo } from "../../utils/index.ipcMain";
+import { logs } from "../../data/logs.interface";
+
+const consoleTextarea = document.getElementById('console') as HTMLInputElement;
 
 const cpu = document.getElementById('cpu');
 const cpupercentage = document.getElementById('cpuPercent');
@@ -12,12 +15,7 @@ const disk2percentage = document.getElementById('disk2Percent');
 const converted = document.getElementById('parsed');
 const convertedpercentage = document.getElementById('parsedPercent');
 
-setTimeout(async () =>{
-	const loader = document.getElementById('loader');
-	if(loader)
-		loader.style.display = 'none'
-}, 5000)
-
+delayer()
 setInterval(() => {
 	ipcRenderer.send("systemInfo");
 	ipcRenderer.on("systemInfoResponse", (ev, arg: iSystemInfo) => {
@@ -25,6 +23,25 @@ setInterval(() => {
 	});
 }, 5000);
 
+ipcRenderer.send('getLogsInit');
+
+ipcRenderer.on('getLogs', async(ev, arg: logs[]) => {
+	if(consoleTextarea){
+		if(arg.length === 0){
+			consoleTextarea.value = '/console';
+			return
+		}
+		consoleTextarea.value = '/console \n';
+		arg.forEach((v)=>{
+			const logTime = new Date(v.time)
+			const formattedTime = `${logTime.getFullYear()}/${(logTime.getMonth() + 1).toString().padStart(2, '0')}/${logTime.getDate().toString().padStart(2, '0')} - ${logTime.getHours().toString().padStart(2, '0')}:${logTime.getMinutes().toString().padStart(2, '0')}:${logTime.getSeconds().toString().padStart(2, '0')}`;
+			const log = v.log
+			consoleTextarea.value += `${formattedTime} > ${log}\n`;
+		})
+		consoleTextarea.scrollTop = consoleTextarea.scrollHeight
+	}
+	
+})
 
 function chartUpdate(update: iSystemInfo): void {
 	const cpuUsage = update.cpu.usage;
@@ -43,4 +60,16 @@ function chartUpdate(update: iSystemInfo): void {
 		converted.style.background = `conic-gradient(#00f7c2 0%, #00f7c2 ${update.converted}%, #44447A 0%, #44447A 100%)`;
 		convertedpercentage.innerHTML = `${update.converted}%`;
 	}
+}
+
+function delayer(): Promise<void> {
+	return new Promise((resolve) =>{
+		setTimeout(() =>{
+			const loader = document.getElementById('loader');
+			if(loader){
+				loader.style.display = 'none';
+				resolve()
+			}
+		}, 8000)
+	})
 }

@@ -3,6 +3,8 @@ import checkDiskSpace from "check-disk-space";
 import { appConfig } from "../data/config.interface";
 import { readFileSync, readdirSync } from "fs";
 import * as path from "path";
+import { BrowserWindow } from "electron";
+import { logs } from "../data/logs.interface";
 
 export function formatBytes(bytes: number): number {
 	const i = Math.floor(Math.log(bytes) / Math.log(1024));
@@ -77,7 +79,11 @@ function getParsedFilesPerentege(): number {
 	const files = getBlkFiles();
 	const parsedFiles = getParsedBlkFiles();
 	const percent = Math.ceil((parsedFiles / files) * 100);
-	return percent
+	if(files == 0 && parsedFiles == 0){
+		return 100
+	} else {
+		return percent
+	}
 }
 
 function getBlkFiles(): number {

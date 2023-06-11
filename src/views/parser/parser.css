@@ -10,17 +10,19 @@
 	height: 150px;
 	resize: none;
 	background-color: black;
-	color: antiquewhite;
+	color: rgb(233, 165, 75);
 	font-family: "Courier New", monospace;
 	font-size: 14px;
-	padding: 10px;
+	padding: 20px;
 	border: none;
-	overflow-y: auto;
+        white-space: pre;
+        tab-size: 2;
+	overflow: auto;
+        word-break: break-all;
 }
-.console:focus {
-	outline: none;
+.console:focus{
+        outline: none;
 }
-
 .loader-container{
         position: absolute;
         display: flex;
@@ -31,7 +33,7 @@
         opacity: 1;
         background-color: rgba(0, 0, 0, 0.8);
         z-index: 2;
-        animation: fadeOut 5s linear 0s forwards;
+        animation: fadeOut 8s linear 0s forwards;
         animation-iteration-count: 1;
 }
 
