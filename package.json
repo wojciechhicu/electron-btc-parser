@@ -1,11 +1,11 @@
 {
   "name": "bitcoin-parser",
-  "productName": "Bitcoin parser",
+  "productName": "BitcoinParser",
   "version": "0.0.1",
   "description": "My Electron application description",
   "main": "./dist/index.js",
   "scripts": {
-    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/assets/** dist/",
+    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/assets/** src/**/*.py dist/",
     "start": "tsc && npm run copy-files && electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
@@ -21,9 +21,11 @@
   "dependencies": {
     "@types/electron": "^1.6.10",
     "@types/os-utils": "^0.0.1",
+    "@types/shell-quote": "^1.7.1",
     "@types/systeminformation": "^3.54.1",
     "electron-squirrel-startup": "^1.0.0",
     "os-utils": "^0.0.14",
+    "shell-quote": "^1.8.1",
     "systeminformation": "^5.18.3",
     "tsparticles": "^2.10.0",
     "tsparticles-engine": "^2.10.0",

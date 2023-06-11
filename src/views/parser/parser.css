@@ -2,7 +2,8 @@
 	width: 100%;
 	height: calc(100% - 150px);
 	display: flex;
-	background-color: #1f1f1f;
+        position: relative;
+	background-color: #44447A;
 }
 .console {
 	width: 100%;
@@ -21,16 +22,19 @@
 }
 
 .stats {
-        height: 100%;
-        width: 100%;
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
 }
 
 .cpuChart{
         height: 100px;
         width: 100px;
         transition: 1s ease-in;
-        background: conic-gradient(#0C47A1 0%, #0C47A1 20%, gray 0%, gray 100%);
+        background: conic-gradient(#00A0F7 0%, #00A0F7 20%, #44447A 0%, #44447A 100%);
         border-radius: 100%;
+        margin: 10px;
 }
 .chartLineCPU{
         height: calc(100px - 20px);
@@ -41,15 +45,37 @@
         top: calc(20px / 2);
         left: 10px;
         border-radius: 100%;
-        background-color: #1f1f1f;
+        
         transition: all .2s;
+}
+.cpuInside{
+        position: absolute;
+        display: flex;
+        font-size: 30px;
+        letter-spacing: 1px;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        text-transform: uppercase;
+        height: 100%;
+        background-color: #2D2E59;
+        border-radius: 100%;
+        color: #00A0F7;
+        transition: all .5s;
+}
+.cpuInside::after{
+        content: 'CPU';
+        font-size: 10px;
+        position: absolute;
+        color: white;
+        transform: translateY(-22px);
 }
 .memoryChart{
         height: 100px;
         width: 100px;
-        background: conic-gradient(#0C47A1 0%, #647286 30%, gray 0%, gray 100%);
+        background: conic-gradient(#FF006E 0%, #FF006E 30%, #44447A 0%, #44447A 100%);
         border-radius: 100%;
-        transition: all .5s;
+        margin: 10px;
 }
 .chartLineMemory{
         content: 'asdasd';
@@ -63,4 +89,26 @@
         border-radius: 100%;
         background-color: #1f1f1f;
         transition: all .2s;
+}
+.memInside{
+        position: absolute;
+        display: flex;
+        font-size: 30px;
+        letter-spacing: 1px;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        text-transform: uppercase;
+        height: 100%;
+        background-color: #2D2E59;
+        border-radius: 100%;
+        color: #FF006E;
+        transition: all .5s;
+}
+.memInside::after{
+        content: 'RAM';
+        font-size: 10px;
+        position: absolute;
+        color: white;
+        transform: translateY(-22px);
 }

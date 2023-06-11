@@ -5,6 +5,7 @@ import { appConfig } from "./data/config.interface";
 import { cpus, totalmem, loadavg } from "os";
 import { exec } from 'child_process';
 import { formatBytes, iSystemInfo, checkSystemInfoStats } from "./utils/index.ipcMain";
+import { quote } from 'shell-quote'
 
 import * as info from 'systeminformation'
 
@@ -72,7 +73,7 @@ app.on("ready", () => {
 	});
 
 	// Open devtools. Just for testing function.
-	mainWindow.webContents.openDevTools();
+	//mainWindow.webContents.openDevTools();
 
 	// Listen for the "minimize" event from the renderer process.
 	// Minimizes the main window.
@@ -192,12 +193,24 @@ app.on("ready", () => {
 	});
 
 	ipcMain.on("systemInfo", (event, arg) => {
-		exec('python src/scripts/cpu_usage.py', async (err, stdout, stderr)=>{
+		const scriptPath = path.resolve(__dirname, 'scripts', 'cpu_usage.py');
+		const quotedScriptPath = quote([scriptPath]);
+		exec(`python ${quotedScriptPath}`, async (err, stdout, stderr)=>{
 			if(err){
-				console.error(`Failed to run script ${err}`);
+				dialog.showMessageBox({
+					type: "error",
+					title: "Error",
+					message: String(err),
+					buttons: ["OK"]
+				})
 				return
 			}else if(stderr){
-				console.error(`Std Error: ${stderr}`)
+				dialog.showMessageBox({
+					type: "error",
+					title: "Error",
+					message: String(stderr),
+					buttons: ["OK"]
+				})
 				
 			} else {
 				let stats = await checkSystemInfoStats();
