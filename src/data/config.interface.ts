@@ -4,4 +4,5 @@ export interface appConfig {
         orphanBlocksPath: string,
         lastBlockFilePath: string;
         parsedBlocksFiles: string[];
+        parsedRevsFiles: string[];
 }

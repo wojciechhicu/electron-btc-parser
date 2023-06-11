@@ -23,6 +23,7 @@
     "@types/os-utils": "^0.0.1",
     "@types/shell-quote": "^1.7.1",
     "@types/systeminformation": "^3.54.1",
+    "check-disk-space": "^3.4.0",
     "electron-squirrel-startup": "^1.0.0",
     "os-utils": "^0.0.14",
     "shell-quote": "^1.8.1",
