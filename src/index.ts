@@ -1,8 +1,12 @@
-import { app, BrowserWindow, Menu, ipcMain, dialog } from "electron";
+import { app, BrowserWindow, Menu, ipcMain, dialog, CPUUsage } from "electron";
 import * as path from "path";
 import { readFileSync, writeFileSync, writeFile } from "fs";
 import { appConfig } from "./data/config.interface";
-import { cpus } from "os";
+import { cpus, totalmem, loadavg } from "os";
+import { exec } from 'child_process';
+import { formatBytes, iSystemInfo, checkSystemInfoStats } from "./utils/index.ipcMain";
+
+import * as info from 'systeminformation'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -68,7 +72,7 @@ app.on("ready", () => {
 	});
 
 	// Open devtools. Just for testing function.
-	//mainWindow.webContents.openDevTools();
+	mainWindow.webContents.openDevTools();
 
 	// Listen for the "minimize" event from the renderer process.
 	// Minimizes the main window.
@@ -187,6 +191,22 @@ app.on("ready", () => {
 			});
 	});
 
+	ipcMain.on("systemInfo", (event, arg) => {
+		exec('python src/scripts/cpu_usage.py', async (err, stdout, stderr)=>{
+			if(err){
+				console.error(`Failed to run script ${err}`);
+				return
+			}else if(stderr){
+				console.error(`Std Error: ${stderr}`)
+				
+			} else {
+				let stats = await checkSystemInfoStats();
+				stats.cpu.usage = Number(stdout) * 10;
+				event.sender.send("systemInfoResponse", stats);
+			}
+		})
+	})
+
 	// Listen for the "choose-directory-parsed-blk" event from the renderer process.
 	// Opens a dialog for selecting a directory and saves the chosen directory path in the configuration file for parsed blocks.
 	// @param {Electron.IpcMainEvent} event - The event object.
@@ -278,6 +298,8 @@ app.on("ready", () => {
 			buttons: ["OK"]
 		})
 	});
+
+	
 });
 
 // Listen for the "window-all-closed" event from the Electron app.
@@ -296,3 +318,4 @@ app.on("activate", () => {
 		createWindow();
 	}
 });
+

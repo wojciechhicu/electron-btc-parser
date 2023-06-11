@@ -1,16 +1,17 @@
 @font-face {
-	font-family: 'Calibri';
-	src: url('./assets/fonts/CALIBRI.TTF') format('truetype');
+	font-family: "Calibri";
+	src: url("./assets/fonts/CALIBRI.TTF") format("truetype");
 }
-*{
+* {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
-body,html {
+body,
+html {
 	height: 100%;
 	width: 100%;
-	font-family: 'Calibri', sans-serif;
+	font-family: "Calibri", sans-serif;
 	overflow: hidden;
 }
 .top-nav {
@@ -18,18 +19,18 @@ body,html {
 	justify-content: space-between;
 	align-items: center;
 	height: 30px;
-	background-color: #2A313E;
+	background-color: #2a313e;
 	-webkit-app-region: drag;
 	color: white;
 }
-.nav-btn{
+.nav-btn {
 	height: 100%;
 	width: 41px;
 	display: flex;
 	padding: 2px;
 	border: none;
-	background-color: #2A313E;
-	transition: background .3s, box-shadow .3s;
+	background-color: #2a313e;
+	transition: background 0.3s, box-shadow 0.3s;
 	cursor: pointer;
 	justify-content: center;
 	-webkit-app-region: no-drag;
@@ -47,28 +48,28 @@ body,html {
 	fill: #b9bdc4;
 	max-height: 100%;
 }
-.close-btn:hover{
-	background-color: #FF0000;
+.close-btn:hover {
+	background-color: #ff0000;
 }
-.close-btn:focus{
-	background-color: #FF0000;
+.close-btn:focus {
+	background-color: #ff0000;
 }
 .close-btn:hover svg {
-	fill: white
+	fill: white;
 }
 .close-btn:focus svg {
-	fill: white
+	fill: white;
 }
-.max-window{
+.max-window {
 	transform: scale(0.8);
 }
-.min-window{
+.min-window {
 	transform: translateY(-25%);
 }
 .hide {
 	display: none !important;
 }
-.bradning{
+.bradning {
 	display: inline-flex;
 	align-items: center;
 	height: 30px;
@@ -77,13 +78,29 @@ body,html {
 .logo svg {
 	height: 22px;
 	transform: translateY(2px);
-	fill: #F0B90B;
+	fill: #f0b90b;
 }
-.wrapper{
+.wrapper {
 	display: inline-flex;
 	height: 30px;
 }
-.content{
+.content {
 	width: 100%;
 	height: calc(100% - 30px);
+}
+
+::-webkit-scrollbar {
+	width: 10px; /* szerokość paska przewijania */
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1; /* kolor tła paska przewijania */
+}
+
+::-webkit-scrollbar-thumb {
+	background: #888; /* kolor samego paska przewijania */
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #555; /* kolor paska przewijania po najechaniu kursorem */
 }

@@ -20,7 +20,11 @@
   "license": "MIT",
   "dependencies": {
     "@types/electron": "^1.6.10",
+    "@types/os-utils": "^0.0.1",
+    "@types/systeminformation": "^3.54.1",
     "electron-squirrel-startup": "^1.0.0",
+    "os-utils": "^0.0.14",
+    "systeminformation": "^5.18.3",
     "tsparticles": "^2.10.0",
     "tsparticles-engine": "^2.10.0",
     "tsparticles-preset-links": "^2.10.1"

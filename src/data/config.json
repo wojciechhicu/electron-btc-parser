@@ -1,7 +1,7 @@
 {
-        "blocksDirPath": "",
-        "parsedBlocksDirPath": "",
-        "orphanBlocksPath": "",
-        "lastBlockFilePath": "",
+        "blocksDirPath": "E:/BTC/blocks",
+        "parsedBlocksDirPath": "D:/blocks",
+        "orphanBlocksPath": "D:/blocks",
+        "lastBlockFilePath": "D:/blocks",
         "parsedBlocksFiles": []
 }
