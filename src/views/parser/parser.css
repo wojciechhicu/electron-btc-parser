@@ -1,3 +1,307 @@
+.convert {
+	display: flex;
+	position: relative;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+}
+.main {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+}
+
+.up {
+	display: flex;
+	flex-direction: row;
+	gap: 0.5em;
+}
+
+.down {
+	display: flex;
+	flex-direction: row;
+	gap: 0.5em;
+}
+
+.card1 {
+	width: 90px;
+	height: 90px;
+	outline: none;
+	border: none;
+	background: white;
+	border-radius: 90px 5px 5px 5px;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+		rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+	transition: 0.2s ease-in-out;
+	position: relative;
+}
+
+.tooltip1{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 7px;
+	border-radius: 10px;
+	box-sizing: border-box;
+	color: white;
+	background-color: #ff5722;
+	visibility: hidden;
+	width: 150px;
+	height: 50px;
+	position: absolute;
+	top: -50px;
+	left: -110px;
+}
+
+.tooltip1::after{
+	content: '';
+	position: absolute;
+	bottom: -18px;
+	right: 10px;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 20px solid #ff5722;
+}
+
+.fadeIn {
+	visibility: visible;
+	opacity: 0;
+	animation: fadeIn .3s linear forwards;
+	animation-iteration-count: 1;
+}
+.fadeOut {
+	visibility: visible;
+	opacity: 1;
+	animation: fadeOut .3s linear forwards;
+	animation-iteration-count: 1;
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100%{
+		opacity: 1;
+	}
+}
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100%{
+		opacity: 0;
+	}
+}
+
+/* .card1:hover .tooltip1,
+.card1:focus .tooltip1  {
+	visibility: visible;
+	opacity: 1;
+} */
+
+
+.tooltip2{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 7px;
+	border-radius: 10px;
+	box-sizing: border-box;
+	color: white;
+	background-color: #4caf50;
+	visibility: hidden;
+	opacity: 1;
+	width: 150px;
+	height: 50px;
+	position: absolute;
+	top: -50px;
+	right: -110px;
+}
+.tooltip2::after{
+	content: '';
+	position: absolute;
+	bottom: -18px;
+	left: 10px;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 20px solid #4caf50;
+}
+
+.tooltip3{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 7px;
+	border-radius: 10px;
+	box-sizing: border-box;
+	color: white;
+	background-color: #f44336;;
+	visibility: hidden;
+	opacity: 1;
+	width: 150px;
+	height: 50px;
+	position: absolute;
+	bottom: -50px;
+	left: -110px;
+	z-index: 5;
+}
+.tooltip3::after{
+	content: '';
+	position: absolute;
+	top: -18px;
+	right: 10px;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 20px solid #f44336;;
+	transform: rotate(180deg);
+	z-index: 5;
+}
+.tooltip4{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 7px;
+	border-radius: 10px;
+	box-sizing: border-box;
+	color: white;
+	background-color: #03a9f4;
+	visibility: hidden;
+	opacity: 1;
+	width: 150px;
+	height: 50px;
+	position: absolute;
+	bottom: -50px;
+	right: -110px;
+	z-index: 5;
+}
+.tooltip4::after{
+	content: '';
+	position: absolute;
+	top: -18px;
+	left: 10px;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 20px solid #03a9f4;
+	transform: rotate(180deg);
+	z-index: 5;
+}
+.protect {
+	margin-top: 1.5em;
+	margin-left: 1.2em;
+	fill: #ff5722;
+}
+
+.card2 {
+	width: 90px;
+	height: 90px;
+	outline: none;
+	border: none;
+	background: white;
+	border-radius: 5px 90px 5px 5px;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+		rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+	transition: 0.2s ease-in-out;
+	position: relative;
+}
+
+.sync {
+	margin-top: 1.5em;
+	margin-left: -0.9em;
+	fill: #4caf50;
+}
+
+.card3 {
+	width: 90px;
+	height: 90px;
+	outline: none;
+	border: none;
+	background: white;
+	border-radius: 5px 5px 5px 90px;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+		rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+	transition: 0.2s ease-in-out;
+	position: relative;
+}
+
+.delete {
+	margin-top: -0.6em;
+	margin-left: 1.2em;
+	fill: #f44336;
+}
+
+.card4 {
+	width: 90px;
+	height: 90px;
+	outline: none;
+	border: none;
+	background: white;
+	border-radius: 5px 5px 90px 5px;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+		rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+	transition: 0.2s ease-in-out;
+	position: relative;
+}
+
+.settings {
+	margin-top: -0.9em;
+	margin-left: -1.2em;
+	fill: #03a9f4;
+}
+
+.card1:hover,
+.card1:focus  {
+	cursor: pointer;
+	scale: 1.1;
+	background-color: #ff5722;
+}
+
+.card1:hover .protect,
+.card1:focus .protect {
+	fill: white;
+}
+
+.card2:hover,
+.card2:focus {
+	cursor: pointer;
+	scale: 1.1;
+	background-color: #4caf50;
+}
+
+.card2:hover .sync,
+.card2:focus .sync {
+	fill: white;
+}
+
+.card3:hover,
+.card3:focus {
+	cursor: pointer;
+	scale: 1.1;
+	background-color: #f44336;
+}
+
+.card3:hover .delete,
+.card3:focus .delete {
+	fill: white;
+}
+
+.card4:hover,
+.card4:focus {
+	cursor: pointer;
+	scale: 1.1;
+	background-color: #03a9f4;
+}
+
+.card4:hover .settings,
+.card4:focus .settings {
+	fill: white;
+}
 .container {
 	width: 100%;
 	height: calc(100% - 150px);
@@ -15,26 +319,26 @@
 	font-size: 14px;
 	padding: 20px;
 	border: none;
-        white-space: pre;
-        tab-size: 2;
+	white-space: pre;
+	tab-size: 2;
 	overflow: auto;
-        word-break: break-all;
+	word-break: break-all;
 }
-.console:focus{
-        outline: none;
+.console:focus {
+	outline: none;
 }
-.loader-container{
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        opacity: 1;
-        background-color: rgba(0, 0, 0, 0.8);
-        z-index: 2;
-        animation: fadeOut 8s linear 0s forwards;
-        animation-iteration-count: 1;
+.loader-container {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 2;
+	animation: fadeOut 8s linear 0s forwards;
+	animation-iteration-count: 1;
 }
 
 .loader path,
@@ -45,12 +349,12 @@
 .stats {
 	position: absolute;
 	display: flex;
-        width: 100%;
-        justify-content: center;
-        align-items: center;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
 	flex-direction: row;
-        bottom: 0;
-        left: 0;
+	bottom: 0;
+	left: 0;
 }
 
 .cpuChart {
@@ -287,18 +591,4 @@
 	position: absolute;
 	color: white;
 	transform: translateY(-22px);
-}
-
-
-
-@keyframes fadeOut {
-        0%{
-                opacity: 1;
-        }
-        90%{
-                opacity: 1;
-        }
-        100%{
-                opacity: 0;
-        }
 }
