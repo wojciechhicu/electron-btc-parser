@@ -1,8 +1,14 @@
-import { app, BrowserWindow, Menu, ipcMain, dialog } from "electron";
+import { app, BrowserWindow, Menu, ipcMain, dialog, CPUUsage } from "electron";
 import * as path from "path";
-import { readFileSync, writeFileSync, writeFile } from "fs";
+import { readFileSync, writeFileSync, writeFile, watch } from "fs";
 import { appConfig } from "./data/config.interface";
-import { cpus } from "os";
+import { cpus, totalmem, loadavg } from "os";
+import { exec } from 'child_process';
+import { formatBytes, iSystemInfo, checkSystemInfoStats } from "./utils/index.ipcMain";
+import { quote } from 'shell-quote'
+
+import * as info from 'systeminformation'
+import { logs } from "./data/logs.interface";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -187,6 +193,35 @@ app.on("ready", () => {
 			});
 	});
 
+	ipcMain.on("systemInfo", (event, arg) => {
+		const scriptPath = path.resolve(__dirname, 'scripts', 'cpu_usage.py');
+		const quotedScriptPath = quote([scriptPath]);
+		exec(`python ${quotedScriptPath}`, async (err, stdout, stderr)=>{
+			if(err){
+				dialog.showMessageBox({
+					type: "error",
+					title: "Error",
+					message: String(err),
+					buttons: ["OK"]
+				})
+				return
+			}else if(stderr){
+				dialog.showMessageBox({
+					type: "error",
+					title: "Error",
+					message: String(stderr),
+					buttons: ["OK"]
+				})
+				
+			} else {
+				let stats = await checkSystemInfoStats();
+				stats.cpu.usage = Number(stdout) * 10;
+				event.sender.send("systemInfoResponse", stats);
+			}
+		})
+	})
+
+
 	// Listen for the "choose-directory-parsed-blk" event from the renderer process.
 	// Opens a dialog for selecting a directory and saves the chosen directory path in the configuration file for parsed blocks.
 	// @param {Electron.IpcMainEvent} event - The event object.
@@ -269,6 +304,29 @@ app.on("ready", () => {
 			});
 	});
 
+	ipcMain.on("getLogsInit", () => {
+		const logs = readFileSync(path.join(__dirname, 'data/logs.json'), 'utf8');
+
+		//sometimes watch run 2 times and one of this is with empty data.
+		//this will protect json.parse for empty arrays.
+		if(logs.length >= 2){
+			const parsedLogs: logs[] = JSON.parse(logs);
+			mainWindow.webContents.send('getLogs', parsedLogs)
+		}
+	});
+	watch(path.join(__dirname, 'data/logs.json'), (event, filename) =>{
+		if(event === 'change'){
+			const logs = readFileSync(path.join(__dirname, 'data/logs.json'), 'utf8');
+
+			//sometimes watch run 2 times and one of this is with empty data.
+			//this will protect json.parse for empty arrays.
+			if(logs.length >= 2){
+				const parsedLogs: logs[] = JSON.parse(logs);
+				mainWindow.webContents.send('getLogs', parsedLogs)
+			}
+
+		}
+	})
 	// Show a warning dialog box if there is a submission error
 	ipcMain.on("submit-error", () => {
 		dialog.showMessageBox({
@@ -296,3 +354,4 @@ app.on("activate", () => {
 		createWindow();
 	}
 });
+

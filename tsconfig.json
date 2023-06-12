@@ -15,13 +15,12 @@
 		"allowJs": true
 	},
 	"include": [
-		"src/**/*.html",
 		"src/**/*.ts",
-		"src/**/*.css",
+		"src/**/*.html",
 		"src/**/*.js",
-		"src/data/config.json",
+		"src/**/*.css",
+		"src/**/*.json",
 		"node_modules/particles.js/particle-js.d.ts",
-		"src/views/home/particle.json"
 	],
 	"exclude": ["node_modules", "**/*.spec.ts"]
 }
