@@ -1,0 +1,412 @@
+//colors for stat charts
+$primary-color: #00a0f7;
+$secondary-color: #44447a;
+$highlight-color: #2d2e59;
+
+//MIXINS for stat charts
+@mixin chart($color) {
+	height: 100px;
+	width: 100px;
+	transition: 1s ease-in;
+	background: conic-gradient(
+		$color 0%,
+		$color 30%,
+		$secondary-color 0%,
+		$secondary-color 100%
+	);
+	border-radius: 100%;
+	margin: 10px;
+}
+
+@mixin chart-line {
+	height: calc(100px - 20px);
+	width: calc(100px - 20px);
+	position: relative;
+	display: flex;
+	justify-content: center;
+	top: calc(20px / 2);
+	left: 10px;
+	border-radius: 100%;
+	transition: all 0.2s;
+}
+
+@mixin chart-inside($color, $label) {
+	position: absolute;
+	display: flex;
+	font-size: 30px;
+	letter-spacing: 1px;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	text-transform: uppercase;
+	height: 100%;
+	background-color: $highlight-color;
+	border-radius: 100%;
+	color: $color;
+	transition: all 0.5s;
+
+	&::after {
+		content: $label;
+		font-size: 10px;
+		position: absolute;
+		color: white;
+		transform: translateY(-22px);
+	}
+}
+
+.parser-container {
+	width: 100%;
+	height: calc(100% - 150px);
+	display: flex;
+	position: relative;
+	background-color: #44447a;
+
+	.convert {
+		display: flex;
+		position: relative;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		.main {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5em;
+			.card {
+				width: 90px;
+				height: 90px;
+				outline: none;
+				border: none;
+				background: white;
+				box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+					rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+				transition: 0.3s ease-in-out;
+				position: relative;
+			}
+			.tooltip {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 7px;
+				border-radius: 10px;
+				box-sizing: border-box;
+				color: white;
+				position: absolute;
+				visibility: hidden;
+				width: 150px;
+				height: 50px;
+				&::after {
+					content: "";
+					position: absolute;
+					width: 0;
+					height: 0;
+				}
+			}
+			.fadeIn {
+				visibility: visible;
+				opacity: 0;
+				animation: fadeIn 0.3s linear forwards;
+				animation-iteration-count: 1;
+			}
+			.fadeOut {
+				visibility: visible;
+				opacity: 1;
+				animation: fadeOut 0.3s linear forwards;
+				animation-iteration-count: 1;
+			}
+			.up {
+				display: flex;
+				flex-direction: row;
+				gap: 0.5em;
+				.card1 {
+					border-radius: 90px 5px 5px 5px;
+					&:hover,
+					&:focus {
+						cursor: pointer;
+						scale: 1.1;
+						background-color: #ff5722;
+					}
+
+					&:hover .protect,
+					&:focus .protect {
+						fill: white;
+					}
+					.tooltip1 {
+						background-color: #ff5722;
+						top: -50px;
+						left: -110px;
+						&::after {
+							bottom: -18px;
+							right: 10px;
+							border-left: 10px solid
+								transparent;
+							border-right: 10px solid
+								transparent;
+							border-top: 20px solid
+								#ff5722;
+						}
+					}
+					.protect {
+						margin-top: 1.5em;
+						margin-left: 1.2em;
+						fill: #ff5722;
+					}
+				}
+
+				.card2 {
+					border-radius: 5px 90px 5px 5px;
+					&:hover,
+					&:focus {
+						cursor: pointer;
+						scale: 1.1;
+						background-color: #4caf50;
+					}
+
+					&:hover .sync,
+					&:focus .sync {
+						fill: white;
+					}
+					.tooltip2 {
+						background-color: #4caf50;
+						top: -50px;
+						right: -110px;
+						&::after {
+							bottom: -18px;
+							left: 10px;
+							border-left: 10px solid
+								transparent;
+							border-right: 10px solid
+								transparent;
+							border-top: 20px solid
+								#4caf50;
+						}
+					}
+					.sync {
+						margin-top: 1.5em;
+						margin-left: -0.9em;
+						fill: #4caf50;
+					}
+				}
+			}
+
+			.down {
+				display: flex;
+				flex-direction: row;
+				gap: 0.5em;
+				.card3 {
+					border-radius: 5px 5px 5px 90px;
+					&:hover,
+					&:focus {
+						cursor: pointer;
+						scale: 1.1;
+						background-color: #f44336;
+					}
+
+					&:hover .delete,
+					&:focus .delete {
+						fill: white;
+					}
+					.tooltip3 {
+						background-color: #f44336;
+						bottom: -50px;
+						left: -110px;
+						&::after {
+							top: -18px;
+							right: 10px;
+							border-left: 10px solid
+								transparent;
+							border-right: 10px solid
+								transparent;
+							border-top: 20px solid
+								#f44336;
+							transform: rotate(
+								180deg
+							);
+						}
+					}
+					.delete {
+						margin-top: -0.6em;
+						margin-left: 1.2em;
+						fill: #f44336;
+					}
+				}
+				.card4 {
+					border-radius: 5px 5px 90px 5px;
+					&:hover,
+					&:focus {
+						cursor: pointer;
+						scale: 1.1;
+						background-color: #03a9f4;
+					}
+
+					&:hover .settings,
+					&:focus .settings {
+						fill: white;
+					}
+					.tooltip4 {
+						background-color: #03a9f4;
+						bottom: -50px;
+						right: -110px;
+						&::after {
+							top: -18px;
+							left: 10px;
+							border-left: 10px solid
+								transparent;
+							border-right: 10px solid
+								transparent;
+							border-top: 20px solid
+								#03a9f4;
+							transform: rotate(
+								180deg
+							);
+						}
+					}
+					.settings {
+						margin-top: -0.9em;
+						margin-left: -1.2em;
+						fill: #03a9f4;
+					}
+				}
+			}
+		}
+	}
+	.stats {
+		position: absolute;
+		display: flex;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		flex-direction: row;
+		bottom: 0;
+		left: 0;
+
+		.loader-container {
+			position: absolute;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			height: 100%;
+			opacity: 1;
+			background-color: rgba(0, 0, 0, 0.8);
+			z-index: 2;
+			animation: fadeOut2 8s linear 0s forwards;
+			animation-iteration-count: 1;
+		}
+
+		.loader path,
+		.loader rect {
+			fill: #ff6700;
+		}
+		.cpuChart {
+			@include chart($primary-color);
+			.chartLineCPU {
+				@include chart-line;
+				.cpuInside {
+					@include chart-inside(
+						$primary-color,
+						"CPU"
+					);
+				}
+			}
+		}
+
+		.memoryChart {
+			@include chart(#ff006e);
+			.chartLineMemory {
+				@include chart-line;
+				.memInside {
+					@include chart-inside(#ff006e, "RAM");
+				}
+			}
+		}
+
+		.diskChart {
+			@include chart(#c0e006);
+			.chartLineDisk {
+				@include chart-line;
+				.diskInside {
+					@include chart-inside(
+						#c0e006,
+						"DISK 1"
+					);
+				}
+			}
+		}
+
+		.disk2Chart {
+			@include chart(#c0e006);
+			.chartLineDisk2 {
+				@include chart-line;
+				.disk2Inside {
+					@include chart-inside(
+						#c0e006,
+						"DISK 2"
+					);
+				}
+			}
+		}
+
+		.parsedChart {
+			@include chart(#00f7c2);
+			.chartLineParsed {
+				@include chart-line;
+				.parsedInside {
+					@include chart-inside(
+						#00f7c2,
+						"converted"
+					);
+				}
+			}
+		}
+	}
+}
+.console {
+	width: 100%;
+	height: 150px;
+	resize: none;
+	background-color: black;
+	color: rgb(233, 165, 75);
+	font-family: "Courier New", monospace;
+	font-size: 14px;
+	padding: 20px;
+	border: none;
+	white-space: pre;
+	tab-size: 2;
+	overflow: auto;
+	word-break: break-all;
+	&:focus {
+		outline: none;
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes fadeOut2 {
+	0% {
+		opacity: 1;
+	}
+	50%{
+		opacity: .8;
+	}
+	99%{
+		opacity: .1;
+	}
+	100% {
+		opacity: 0;
+		display: none;
+	}
+}
