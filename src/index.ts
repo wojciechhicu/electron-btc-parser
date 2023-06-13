@@ -1,10 +1,10 @@
-import { app, BrowserWindow, Menu, ipcMain, dialog, CPUUsage } from "electron";
+import { app, BrowserWindow, ipcMain, dialog } from "electron";
 import * as path from "path";
-import { readFileSync, writeFileSync, writeFile, watch } from "fs";
+import { readFileSync, writeFileSync, watch } from "fs";
 import { appConfig } from "./data/config.interface";
-import { cpus, totalmem, loadavg } from "os";
+import { cpus } from "os";
 import { exec } from 'child_process';
-import { formatBytes, iSystemInfo, checkSystemInfoStats } from "./utils/index.ipcMain";
+import {  checkSystemInfoStats } from "./utils/index.ipcMain";
 import { quote } from 'shell-quote'
 
 import * as info from 'systeminformation'
@@ -304,6 +304,7 @@ app.on("ready", () => {
 			});
 	});
 
+	// On page loaded send logs file
 	ipcMain.on("getLogsInit", () => {
 		const logs = readFileSync(path.join(__dirname, 'data/logs.json'), 'utf8');
 
@@ -314,6 +315,9 @@ app.on("ready", () => {
 			mainWindow.webContents.send('getLogs', parsedLogs)
 		}
 	});
+
+	// Listen on file change.
+	// On any file change send to renderer new logs file
 	watch(path.join(__dirname, 'data/logs.json'), (event, filename) =>{
 		if(event === 'change'){
 			const logs = readFileSync(path.join(__dirname, 'data/logs.json'), 'utf8');

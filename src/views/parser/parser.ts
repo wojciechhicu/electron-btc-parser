@@ -1,9 +1,11 @@
 import { ipcRenderer } from "electron";
-import { iSystemInfo } from "../../utils/index.ipcMain";
+import { iSystemInfo } from "../../utils/main.interface";
 import { logs } from "../../data/logs.interface";
 
+// console object
 const consoleTextarea = document.getElementById("console") as HTMLInputElement;
 
+// stats objects
 const cpu = document.getElementById("cpu") as HTMLElement;
 const cpupercentage = document.getElementById("cpuPercent") as HTMLElement;
 const memory = document.getElementById("memory") as HTMLElement;
@@ -15,9 +17,11 @@ const disk2percentage = document.getElementById("disk2Percent") as HTMLElement;
 const converted = document.getElementById("parsed") as HTMLElement;
 const convertedpercentage = document.getElementById("parsedPercent") as HTMLElement;
 
+// tooltips and cards for main menu
 const cards: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".card");
 const tooltips: NodeListOf<HTMLElement> = document.querySelectorAll(".tooltip");
 
+// add listeners for cards / buttons
 cards.forEach((card, index) => {
 	const tooltip = tooltips[index];
 
@@ -38,12 +42,20 @@ cards.forEach((card, index) => {
 	});
 });
 
+/**
+ * Add fadein animation to object
+ * @param tooltip tooltip object
+ */
 function tooltipFadeIn(tooltip: HTMLElement) {
 	tooltip.style.visibility = "visible";
 	tooltip.classList.remove("fadeOut");
 	tooltip.classList.add("fadeIn");
 }
 
+/**
+ * Add fadeout animation to object
+ * @param tooltip tooltip object
+ */
 function tooltipFadeOut(tooltip: HTMLElement) {
 	tooltip.classList.remove("fadeIn");
 	tooltip.classList.add("fadeOut");
@@ -52,17 +64,19 @@ function tooltipFadeOut(tooltip: HTMLElement) {
 	}, 300);
 }
 
-delayer();
+// every 5s update charts and remove loader if exist
 setInterval(() => {
 	ipcRenderer.send("systemInfo");
 	ipcRenderer.on("systemInfoResponse", (ev, arg: iSystemInfo) => {
 		chartUpdate(arg);
-		removeLoader()
+		removeLoader();
 	});
 }, 5000);
 
+// when loaded get logs for console
 ipcRenderer.send("getLogsInit");
 
+// listen on getlogs channel and put data into console
 ipcRenderer.on("getLogs", async (ev, arg: logs[]) => {
 	if (consoleTextarea) {
 		if (arg.length === 0) {
@@ -96,6 +110,7 @@ ipcRenderer.on("getLogs", async (ev, arg: logs[]) => {
 	}
 });
 
+// sts charts update every 5s
 function chartUpdate(update: iSystemInfo): void {
 	const cpuUsage = update.cpu.usage;
 	const usedMem = update.memory.total - update.memory.free;
@@ -115,18 +130,8 @@ function chartUpdate(update: iSystemInfo): void {
 	convertedpercentage.innerHTML = `${update.converted}%`;
 }
 
-function delayer(): Promise<void> {
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			const loader = document.getElementById("loader");
-			if (loader) {
-				loader.style.display = "none";
-				resolve();
-			}
-		}, 8000);
-	});
-}
 
+// When data about stats is loaded remove loaders from charts
 function removeLoader(): void{
 	const loaders: NodeListOf<HTMLElement> = document.querySelectorAll(".loader-container");
 	loaders.forEach((val)=>{

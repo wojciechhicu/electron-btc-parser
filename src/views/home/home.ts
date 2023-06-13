@@ -58,7 +58,13 @@ async function chooseParsedDirectory() {
 	ipcRenderer.send("choose-directory-parsed-blk");
 }
 
-// Function for form submission
+/**
+ * On submit click function
+ * 
+ * If data is picked by user then send event to electron to reload app, then app is loaded to parser page
+ * 
+ * If some of the data is not picked, then send to electron to show error dialog
+ */
 async function submitFunction() {
 	if (pickedBlkdir.value !== "" && pickedParsedBlkdir.value !== "") {
 		ipcRenderer.send("restart");
@@ -67,14 +73,20 @@ async function submitFunction() {
 	}
 }
 
-// fadein animation for tooltip
+/**
+ * fadein animation for tooltip
+ * @param tooltip tooltip element
+ */
 function tooltipFadeIn(tooltip: HTMLElement) {
 	tooltip.style.visibility = "visible";
 	tooltip.classList.remove("fadeOut");
 	tooltip.classList.add("fadeIn");
 }
 
-// fadeout animation for tooltip
+/**
+ * Fadeout animation for tooltip
+ * @param tooltip tooltip element
+ */
 function tooltipFadeOut(tooltip: HTMLElement) {
 	tooltip.classList.remove("fadeIn");
 	tooltip.classList.add("fadeOut");
@@ -86,7 +98,9 @@ function tooltipFadeOut(tooltip: HTMLElement) {
 // Initialize particles
 particles();
 
-// Load particles configuration
+/**
+ * Load particles configuration
+ */
 async function particles() {
 	await loadFull(tsParticles);
 	await loadLinksPreset(tsParticles);

@@ -3,28 +3,22 @@ import checkDiskSpace from "check-disk-space";
 import { appConfig } from "../data/config.interface";
 import { readFileSync, readdirSync } from "fs";
 import * as path from "path";
-import { BrowserWindow } from "electron";
-import { logs } from "../data/logs.interface";
+import { iSystemInfo } from "./main.interface";
 
+/**
+ * Format given number in bytes to GB
+ * @param bytes file size in bytes
+ * @returns file size in GB's
+ */
 export function formatBytes(bytes: number): number {
 	const i = Math.floor(Math.log(bytes) / Math.log(1024));
 	return bytes / Math.pow(1024, i);
 }
 
-export interface iSystemInfo {
-	cpu: {
-		usage: number;
-	};
-	memory: {
-		total: number;
-		free: number;
-	};
-	disk: {
-		first: number;
-		second: number;
-	};
-	converted: number;
-}
+/**
+ * Get system info
+ * @returns system stat info
+ */
 export async function checkSystemInfoStats(): Promise<iSystemInfo> {
 	const freeMem = formatBytes(oss.freemem());
 	const totalMem = formatBytes(oss.totalmem());
@@ -49,6 +43,11 @@ export async function checkSystemInfoStats(): Promise<iSystemInfo> {
 	return info;
 }
 
+/**
+ * Get disk usage
+ * @param disk disk to check
+ * @returns disk usage in %
+ */
 export function getDiskUsagePercentage(disk: string): Promise<number> {
 	return new Promise((resolve) => {
 		checkDiskSpace(disk).then((v) => {
@@ -59,6 +58,10 @@ export function getDiskUsagePercentage(disk: string): Promise<number> {
 	});
 }
 
+/**
+ * Get disks from config.json
+ * @returns disks array
+ */
 function getDisks(): string[] {
 	try {
 		const config = readFileSync(
@@ -75,6 +78,10 @@ function getDisks(): string[] {
 	}
 }
 
+/**
+ * How much % of blockchain is parsed
+ * @returns % of parsed files
+ */
 function getParsedFilesPerentege(): number {
 	const files = getBlkFiles();
 	const parsedFiles = getParsedBlkFiles();
@@ -86,6 +93,10 @@ function getParsedFilesPerentege(): number {
 	}
 }
 
+/**
+ * How much blk files is in folder
+ * @returns number of blk files
+ */
 function getBlkFiles(): number {
 	try {
 		const config = readFileSync(
@@ -109,6 +120,10 @@ function getBlkFiles(): number {
 	}
 }
 
+/**
+ * How much blocks are parsed
+ * @returns number of parsed files
+ */
 function getParsedBlkFiles(): number {
 	try{
 		const config = readFileSync(

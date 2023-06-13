@@ -15,26 +15,34 @@ document.addEventListener("DOMContentLoaded", () => {
 	exitMaxWindow?.addEventListener("click", exitMaxWindowF);
 	closeWindowEl?.addEventListener("click", closeWindow);
 
-	// Function to minimize the window
+	/**
+	 * Function to minimize the window
+	 */
 	function minimizeWindow() {
 		ipcRenderer.send("minimize");
 	}
 
-	// Function to toggle fullscreen mode
+	/**
+	 * Function to toggle fullscreen mode
+	 */
 	function toggleFullScreen() {
 		ipcRenderer.send("maximize");
 		maxWindow?.classList.toggle("hide");
 		exitMaxWindow?.classList.toggle("hide");
 	}
 
-	// Function to exit fullscreen mode
+	/**
+	 * Function to exit fullscreen mode
+	 */
 	function exitMaxWindowF() {
 		ipcRenderer.send("exitMaxWindow");
 		maxWindow?.classList.toggle("hide");
 		exitMaxWindow?.classList.toggle("hide");
 	}
 
-	// Function to close the window
+	/**
+	 *  Function to close the window
+	 */
 	function closeWindow() {
 		ipcRenderer.send("closeWindow");
 	}
