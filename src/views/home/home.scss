@@ -121,6 +121,11 @@ $accent-color: #ad5389;
 						background-color: #504f4f;
 						transition-duration: 0.3s;
 					}
+					&:focus{
+						background-color: #504f4f;
+						transition-duration: 0.3s;
+						outline: none;
+					}
 					.dirIcon {
 						width: 32px;
 						path{
@@ -157,6 +162,15 @@ $accent-color: #ad5389;
 					transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
 				}
 				&:hover{
+					svg{
+						transform: translateX(5px) rotate(90deg);
+					}
+					span{
+						transform: translateX(7px);
+					}
+				}
+				&:focus{
+					outline: none;
 					svg{
 						transform: translateX(5px) rotate(90deg);
 					}

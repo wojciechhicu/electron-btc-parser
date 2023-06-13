@@ -130,6 +130,11 @@
   background-color: #504f4f;
   transition-duration: 0.3s;
 }
+.bg-wrapper .config .form .InputContainer .dirButton:focus {
+  background-color: #504f4f;
+  transition-duration: 0.3s;
+  outline: none;
+}
 .bg-wrapper .config .form .InputContainer .dirButton .dirIcon {
   width: 32px;
 }
@@ -168,6 +173,15 @@
   transform: translateX(5px) rotate(90deg);
 }
 .bg-wrapper .config .form .submit:hover span {
+  transform: translateX(7px);
+}
+.bg-wrapper .config .form .submit:focus {
+  outline: none;
+}
+.bg-wrapper .config .form .submit:focus svg {
+  transform: translateX(5px) rotate(90deg);
+}
+.bg-wrapper .config .form .submit:focus span {
   transform: translateX(7px);
 }
 .bg-wrapper .footer {
