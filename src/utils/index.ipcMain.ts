@@ -1,9 +1,10 @@
 import * as oss from "os-utils";
 import checkDiskSpace from "check-disk-space";
 import { appConfig } from "../data/config.interface";
-import { readFileSync, readdirSync } from "fs";
+import { readFileSync, readdirSync, existsSync, mkdirSync, writeFileSync } from "fs";
 import * as path from "path";
 import { iSystemInfo } from "./main.interface";
+import { addLogs } from "./logs.write";
 
 /**
  * Format given number in bytes to GB
@@ -133,6 +134,40 @@ function getParsedBlkFiles(): number {
 		const parsedConfig: appConfig = JSON.parse(config);
 		return parsedConfig.parsedBlocksFiles.length
 	} catch(e: any){
+		throw new Error(e);
+	}
+}
+
+/**
+ * Check if folder exist.
+ * 
+ * If not create it
+ * @param path path to directory
+ */
+export function createDirectory(path: string): void{
+	try{
+		if(!existsSync(path)){
+			mkdirSync(path, {recursive: true})
+		}
+	} catch(e: any){
+		addLogs(e, Date.now());
+		throw new Error(e);
+	}
+}
+
+/**
+ * Create last block json file with given path
+ * @param path path to last block file
+ */
+export function createLastBlockFile(path: string): void {
+	try{
+		if(!existsSync(path + '/lastBlk.json')){
+			const emptyData = {};
+			const jsonData = JSON.stringify(emptyData, null, 2);
+			writeFileSync(path + '/lastBlk.json', jsonData, 'utf8');
+		}
+	} catch(e: any){
+		addLogs(e, Date.now());
 		throw new Error(e);
 	}
 }

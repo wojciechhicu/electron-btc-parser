@@ -1,6 +1,7 @@
 import { ipcRenderer } from "electron";
 import { iSystemInfo } from "../../utils/main.interface";
 import { logs } from "../../data/logs.interface";
+//import { navigateTo as navTo} from "../../utils/navigateto";
 
 // console object
 const consoleTextarea = document.getElementById("console") as HTMLInputElement;
@@ -15,11 +16,17 @@ const disk1percentage = document.getElementById("disk1Percent") as HTMLElement;
 const disk2 = document.getElementById("disk2") as HTMLElement;
 const disk2percentage = document.getElementById("disk2Percent") as HTMLElement;
 const converted = document.getElementById("parsed") as HTMLElement;
-const convertedpercentage = document.getElementById("parsedPercent") as HTMLElement;
+const convertedpercentage = document.getElementById(
+	"parsedPercent"
+) as HTMLElement;
 
 // tooltips and cards for main menu
 const cards: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".card");
 const tooltips: NodeListOf<HTMLElement> = document.querySelectorAll(".tooltip");
+
+// cards click events
+const settings = document.getElementById("card4") as HTMLButtonElement;
+settings.addEventListener("click", navigateSettings);
 
 // add listeners for cards / buttons
 cards.forEach((card, index) => {
@@ -80,7 +87,7 @@ ipcRenderer.send("getLogsInit");
 ipcRenderer.on("getLogs", async (ev, arg: logs[]) => {
 	if (consoleTextarea) {
 		if (arg.length === 0) {
-			consoleTextarea.value = "/console";
+			consoleTextarea.value = "logs";
 			return;
 		}
 		consoleTextarea.value = "/console \n";
@@ -110,7 +117,7 @@ ipcRenderer.on("getLogs", async (ev, arg: logs[]) => {
 	}
 });
 
-// sts charts update every 5s
+// stats charts update every 5s
 function chartUpdate(update: iSystemInfo): void {
 	const cpuUsage = update.cpu.usage;
 	const usedMem = update.memory.total - update.memory.free;
@@ -130,11 +137,45 @@ function chartUpdate(update: iSystemInfo): void {
 	convertedpercentage.innerHTML = `${update.converted}%`;
 }
 
+/**
+ * When data about stats is loaded remove loaders from charts
+ */
+function removeLoader(): void {
+	const loaders: NodeListOf<HTMLElement> =
+		document.querySelectorAll(".loader-container");
+	loaders.forEach((val) => {
+		val.style.display = "none";
+	});
+}
 
-// When data about stats is loaded remove loaders from charts
-function removeLoader(): void{
-	const loaders: NodeListOf<HTMLElement> = document.querySelectorAll(".loader-container");
-	loaders.forEach((val)=>{
-		val.style.display = 'none'
-	})
+function navigateSettings(): void {
+	navigateTo("./views/home/home");
+}
+
+function navigateTo(baseFilesPath: string) {
+	const viewFrame = document.getElementById("content") as HTMLElement;
+
+	Promise.all([
+		fetch(`${baseFilesPath}.html`).then((response) =>
+			response.text()
+		),
+		fetch(`${baseFilesPath}.css`).then((response) =>
+			response.text()
+		),
+		fetch(`${baseFilesPath}.js`).then((response) => response.text())
+	])
+		.then(([html, css, js]) => {
+			viewFrame.innerHTML = html;
+
+			const styles = document.createElement("style");
+			styles.textContent = css;
+			viewFrame.appendChild(styles);
+
+			const script = document.createElement("script");
+			script.textContent = js;
+			viewFrame.appendChild(script);
+		})
+		.catch((err) => {
+			console.error("Error while loading files: ", err);
+		});
 }
