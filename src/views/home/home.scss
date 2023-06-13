@@ -1,0 +1,232 @@
+$primary-color: #111111;
+$secondary-color: #504f4f;
+$accent-color: #ad5389;
+
+.bg-wrapper {
+	background-color: $primary-color;
+	height: 100%;
+	width: 100%;
+	.config {
+		width: 100%;
+		height: calc(100% - 150px);
+		box-sizing: border-box;
+		background-color: $primary-color;
+		canvas {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			display: block;
+			left: 0;
+			top: 0;
+			border-bottom-left-radius: 10%;
+			border-bottom-right-radius: 10%;
+			z-index: -1;
+		}
+
+		.form {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			position: relative;
+			background-color: $primary-color;
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: 50% 50%;
+			margin: 0;
+			z-index: 2;
+			border-bottom-left-radius: 10%;
+			border-bottom-right-radius: 10%;
+			.InputContainer {
+				height: 40px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: $primary-color;
+				border-radius: 10px;
+				cursor: pointer;
+				padding-left: 15px;
+				margin: 10px;
+				.input {
+					width: 340px;
+					height: 100%;
+					border: none;
+					outline: none;
+					font-size: 0.9em;
+					background-color: $primary-color;
+					color: white;
+					&::placeholder {
+						color: white;
+					}
+				}
+				.border {
+					height: 40%;
+					width: 1.3px;
+					background-color: rgb(223, 223, 223);
+				}
+				.dirButton {
+					padding: 0px 15px 0px 12px;
+					border: none;
+					border-top-right-radius: 10px;
+					border-bottom-right-radius: 10px;
+					background-color: $primary-color;
+					height: 40px;
+					cursor: pointer;
+					transition-duration: 0.3s;
+					position: relative;
+					.tooltip{
+						position: absolute;
+						left: 75px;
+						top: -18px;
+						background-color: $primary-color;
+						border-radius: 5px;
+						box-sizing: border-box;
+						color: aliceblue;
+						width: 150px;
+						height: 75px;
+						word-wrap: break-word;
+						padding: 10px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						visibility: hidden;
+						opacity: 0;
+						&::before{
+							content: "";
+							position: absolute;
+							top: 50%;
+							left: -10px;
+							margin-top: -10px;
+
+							border-top: 10px solid transparent;
+							border-bottom: 10px solid transparent;
+							border-right: 10px solid $primary-color;
+						}
+					}
+					.fadeIn {
+						visibility: visible;
+						opacity: 0;
+						animation: fadeIn 0.3s linear forwards;
+						animation-iteration-count: 1;
+					}
+					.fadeOut {
+						visibility: visible;
+						opacity: 1;
+						animation: fadeOut 0.3s linear forwards;
+						animation-iteration-count: 1;
+					}
+					&:hover{
+						background-color: #504f4f;
+						transition-duration: 0.3s;
+					}
+					.dirIcon {
+						width: 32px;
+						path{
+							fill: white;
+						}
+					}
+				}
+			}
+			.submit {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-family: inherit;
+				font-weight: 500;
+				margin-top: 10px;
+				font-size: 17px;
+				height: 40px;
+				box-sizing: border-box;
+				padding: 0.8em 1.3em 0.8em 0.9em;
+				color: white;
+				background: #ad5389;
+				background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+				border: none;
+				letter-spacing: 0.05em;
+				border-radius: 10px;
+				cursor: pointer;
+				width: 418.3px;
+				svg {
+					margin-right: 3px;
+					transform: rotate(30deg);
+					transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+				}
+				span {
+					transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+				}
+				&:hover{
+					svg{
+						transform: translateX(5px) rotate(90deg);
+					}
+					span{
+						transform: translateX(7px);
+					}
+				}
+			}
+		}
+	}
+	.footer {
+		height: 150px;
+		display: flex;
+		padding: 20px 20px 0 20px;
+		color: rgba(255, 255, 255, 0.85);
+		font-size: 12px;
+		align-items: baseline;
+		width: 100%;
+		box-sizing: border-box;
+		-webkit-font-smoothing: antialiased;
+		.footer-section {
+			display: block;
+			font-family: "Courier New", Courier, monospace;
+			width: 25%;
+			box-sizing: border-box;
+			.footer-logo {
+				svg {
+					fill: rgb(214, 198, 198);
+					width: 18px;
+					height: 18px;
+					-webkit-font-smoothing: antialiased;
+					&:hover {
+						transition: 0.3s;
+						fill: white;
+					}
+				}
+			}
+			.spacer {
+				width: 32px;
+				height: 1px;
+				content: "";
+				margin-left: 32px;
+			}
+			.json-key {
+				color: rgb(117, 191, 255);
+			}
+			
+			.json-value {
+				color: rgb(255, 125, 233);
+			}
+			.footerLink {
+				color: rgb(255, 125, 233);
+			}
+		}
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
