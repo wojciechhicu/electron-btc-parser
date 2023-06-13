@@ -65,7 +65,7 @@
   width: 100%;
   text-transform: uppercase;
   height: 100%;
-  background-color: #2d2e59;
+  background-color: #44447a;
   border-radius: 100%;
   color: #00a0f7;
   transition: all 0.5s;
@@ -107,7 +107,7 @@
   width: 100%;
   text-transform: uppercase;
   height: 100%;
-  background-color: #2d2e59;
+  background-color: #44447a;
   border-radius: 100%;
   color: #ff006e;
   transition: all 0.5s;
@@ -156,7 +156,7 @@
   width: 100%;
   text-transform: uppercase;
   height: 100%;
-  background-color: #2d2e59;
+  background-color: #44447a;
   border-radius: 100%;
   color: #c0e006;
   transition: all 0.5s;
@@ -198,7 +198,7 @@
   width: 100%;
   text-transform: uppercase;
   height: 100%;
-  background-color: #2d2e59;
+  background-color: #44447a;
   border-radius: 100%;
   color: #c0e006;
   transition: all 0.5s;
@@ -240,7 +240,7 @@
   width: 100%;
   text-transform: uppercase;
   height: 100%;
-  background-color: #2d2e59;
+  background-color: #44447a;
   border-radius: 100%;
   color: #00f7c2;
   transition: all 0.5s;
@@ -290,16 +290,16 @@
 .parser-container .main .fadeIn {
   visibility: visible;
   opacity: 0;
-  -webkit-animation: fadeIn 0.3s linear forwards;
-          animation: fadeIn 0.3s linear forwards;
+  -webkit-animation: fadeIn 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+          animation: fadeIn 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
   -webkit-animation-iteration-count: 1;
           animation-iteration-count: 1;
 }
 .parser-container .main .fadeOut {
   visibility: visible;
   opacity: 1;
-  -webkit-animation: fadeOut 0.3s linear forwards;
-          animation: fadeOut 0.3s linear forwards;
+  -webkit-animation: fadeOut 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+          animation: fadeOut 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
   -webkit-animation-iteration-count: 1;
           animation-iteration-count: 1;
 }

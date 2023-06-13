@@ -22,7 +22,6 @@ cards.forEach((card, index) => {
 	const tooltip = tooltips[index];
 
 	card.addEventListener("mouseenter", () => {
-		console.log("dupa");
 		tooltipFadeIn(tooltip);
 	});
 

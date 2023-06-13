@@ -1,218 +1,248 @@
-/* Wrapper styles */
-
 .bg-wrapper {
-	background-color: #111111;
-	height: 100%;
-	width: 100%;
+  background-color: #111111;
+  height: 100%;
+  width: 100%;
+}
+.bg-wrapper .config {
+  width: 100%;
+  height: calc(100% - 150px);
+  box-sizing: border-box;
+  background-color: #111111;
+}
+.bg-wrapper .config canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
+  z-index: -1;
+}
+.bg-wrapper .config .form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  background-color: #111111;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  margin: 0;
+  z-index: 2;
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
+}
+.bg-wrapper .config .form .InputContainer {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #111111;
+  border-radius: 10px;
+  cursor: pointer;
+  padding-left: 15px;
+  margin: 10px;
+}
+.bg-wrapper .config .form .InputContainer .input {
+  width: 340px;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 0.9em;
+  background-color: #111111;
+  color: white;
+}
+.bg-wrapper .config .form .InputContainer .input::-moz-placeholder {
+  color: white;
+}
+.bg-wrapper .config .form .InputContainer .input:-ms-input-placeholder {
+  color: white;
+}
+.bg-wrapper .config .form .InputContainer .input::placeholder {
+  color: white;
+}
+.bg-wrapper .config .form .InputContainer .border {
+  height: 40%;
+  width: 1.3px;
+  background-color: rgb(223, 223, 223);
+}
+.bg-wrapper .config .form .InputContainer .dirButton {
+  padding: 0px 15px 0px 12px;
+  border: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: #111111;
+  height: 40px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  position: relative;
+}
+.bg-wrapper .config .form .InputContainer .dirButton .tooltip {
+  position: absolute;
+  left: 75px;
+  top: -18px;
+  background-color: #111111;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: aliceblue;
+  width: 150px;
+  height: 75px;
+  word-wrap: break-word;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+}
+.bg-wrapper .config .form .InputContainer .dirButton .tooltip::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -10px;
+  margin-top: -10px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #111111;
+}
+.bg-wrapper .config .form .InputContainer .dirButton .fadeIn {
+  visibility: visible;
+  opacity: 0;
+  -webkit-animation: fadeIn 0.3s linear forwards;
+          animation: fadeIn 0.3s linear forwards;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+}
+.bg-wrapper .config .form .InputContainer .dirButton .fadeOut {
+  visibility: visible;
+  opacity: 1;
+  -webkit-animation: fadeOut 0.3s linear forwards;
+          animation: fadeOut 0.3s linear forwards;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+}
+.bg-wrapper .config .form .InputContainer .dirButton:hover {
+  background-color: #504f4f;
+  transition-duration: 0.3s;
+}
+.bg-wrapper .config .form .InputContainer .dirButton .dirIcon {
+  width: 32px;
+}
+.bg-wrapper .config .form .InputContainer .dirButton .dirIcon path {
+  fill: white;
+}
+.bg-wrapper .config .form .submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-weight: 500;
+  margin-top: 10px;
+  font-size: 17px;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 0.8em 1.3em 0.8em 0.9em;
+  color: white;
+  background: #ad5389;
+  background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+  border: none;
+  letter-spacing: 0.05em;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 418.3px;
+}
+.bg-wrapper .config .form .submit svg {
+  margin-right: 3px;
+  transform: rotate(30deg);
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.bg-wrapper .config .form .submit span {
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.bg-wrapper .config .form .submit:hover svg {
+  transform: translateX(5px) rotate(90deg);
+}
+.bg-wrapper .config .form .submit:hover span {
+  transform: translateX(7px);
+}
+.bg-wrapper .footer {
+  height: 150px;
+  display: flex;
+  padding: 20px 20px 0 20px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  align-items: baseline;
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+.bg-wrapper .footer .footer-section {
+  display: block;
+  font-family: "Courier New", Courier, monospace;
+  width: 25%;
+  box-sizing: border-box;
+}
+.bg-wrapper .footer .footer-section .footer-logo svg {
+  fill: rgb(214, 198, 198);
+  width: 18px;
+  height: 18px;
+  -webkit-font-smoothing: antialiased;
+}
+.bg-wrapper .footer .footer-section .footer-logo svg:hover {
+  transition: 0.3s;
+  fill: white;
+}
+.bg-wrapper .footer .footer-section .spacer {
+  width: 32px;
+  height: 1px;
+  content: "";
+  margin-left: 32px;
+}
+.bg-wrapper .footer .footer-section .json-key {
+  color: rgb(117, 191, 255);
+}
+.bg-wrapper .footer .footer-section .json-value {
+  color: rgb(255, 125, 233);
+}
+.bg-wrapper .footer .footer-section .footerLink {
+  color: rgb(255, 125, 233);
 }
 
-/* Config section styles */
-
-.config {
-	width: 100%;
-	height: calc(100% - 150px);
-	box-sizing: border-box;
-	background-color: #111111;
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-.config .form {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	position: relative;
-	background-color: #111111;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: 50% 50%;
-	margin: 0;
-	z-index: 2;
-	border-bottom-left-radius: 10%;
-	border-bottom-right-radius: 10%;
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-
-.config canvas {
-	width: 100%;
-	height: 100%;
-	background-color: #111111;
-	position: absolute;
-	display: block;
-	left: 0;
-	top: 0;
-	border-bottom-left-radius: 10%;
-	border-bottom-right-radius: 10%;
-	z-index: -1;
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
-
-.config .InputContainer {
-	height: 40px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #111111;
-	border-radius: 10px;
-	cursor: pointer;
-	padding-left: 15px;
-	margin: 10px;
-}
-
-.config .input {
-	width: 340px;
-	height: 100%;
-	border: none;
-	outline: none;
-	font-size: 0.9em;
-	background-color: #111111;
-	color: white;
-}
-
-.config .micButton:hover::after {
-	content: attr(data-title);
-	position: absolute;
-	left: 75px;
-	top: -18px;
-	background-color: #111111;
-	border-radius: 5px;
-	box-sizing: border-box;
-	color: aliceblue;
-	width: 150px;
-	height: 75px;
-	word-wrap: break-word;
-	padding: 10px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.config .border {
-	height: 40%;
-	width: 1.3px;
-	background-color: rgb(223, 223, 223);
-}
-
-.config .micIcon {
-	width: 32px;
-}
-
-.config ::placeholder {
-	color: white;
-}
-
-.config .micButton {
-	padding: 0px 15px 0px 12px;
-	border: none;
-	border-top-right-radius: 10px;
-	border-bottom-right-radius: 10px;
-	background-color: #111111;
-	height: 40px;
-	cursor: pointer;
-	transition-duration: 0.3s;
-	position: relative;
-}
-
-.config .searchIcon path {
-	fill: rgb(114, 114, 114);
-}
-
-.config .micIcon path {
-	fill: white;
-}
-
-.config .micButton:hover {
-	background-color: #504f4f;
-	transition-duration: 0.3s;
-}
-
-.config .submit {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-family: inherit;
-	font-weight: 500;
-	margin-top: 10px;
-	font-size: 17px;
-	height: 40px;
-	box-sizing: border-box;
-	padding: 0.8em 1.3em 0.8em 0.9em;
-	color: white;
-	background: #ad5389;
-	background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
-	border: none;
-	letter-spacing: 0.05em;
-	border-radius: 10px;
-	cursor: pointer;
-	width: 418.3px;
-}
-
-.config .submit svg {
-	margin-right: 3px;
-	transform: rotate(30deg);
-	transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-.config .submit span {
-	transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-.config .submit:hover svg {
-	transform: translateX(5px) rotate(90deg);
-}
-
-.config .submit:hover span {
-	transform: translateX(7px);
-}
-
-/* Footer styles */
-
-.footer {
-	height: 150px;
-	display: flex;
-	padding: 20px 20px 0 20px;
-	color: rgba(255, 255, 255, 0.85);
-	font-size: 12px;
-	justify-content: space-between;
-	align-items: baseline;
-	width: 100%;
-	box-sizing: border-box;
-	-webkit-font-smoothing: antialiased;
-}
-
-footer .footer-section {
-	display: block;
-	font-family: "Courier New", Courier, monospace;
-	width: 25%;
-	box-sizing: border-box;
-}
-
-.footer .footer-logo svg {
-	fill: rgb(214, 198, 198);
-	width: 18px;
-	height: 18px;
-	-webkit-font-smoothing: antialiased;
-}
-
-.footer .footer-logo svg:hover {
-	transition: .3s;
-	fill: white;
-}
-
-.footer .json-key {
-	color: rgb(117, 191, 255);
-}
-
-.footer .json-value {
-	color: rgb(255, 125, 233);
-}
-
-.footer .spacer {
-	width: 32px;
-	height: 1px;
-	content: "";
-	margin-left: 32px;
-}
-
-.footer .footerLink {
-	color: rgb(255, 125, 233);
-}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}/*# sourceMappingURL=home.css.map */

@@ -25,6 +25,29 @@ document.getElementById("chooseParsedBlkFiles")?.addEventListener(
 	chooseParsedDirectory
 );
 
+const btns: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".dirButton");
+const tooltips: NodeListOf<HTMLElement> = document.querySelectorAll(".tooltip");
+
+// Add animation which depends on maus / focus event
+btns.forEach((btn, index)=>{
+	const tooltip = tooltips[index];
+	btn.addEventListener("mouseenter", () => {
+		tooltipFadeIn(tooltip);
+	});
+
+	btn.addEventListener("focusin", () => {
+		tooltipFadeIn(tooltip);
+	});
+
+	btn.addEventListener("mouseleave", () => {
+		tooltipFadeOut(tooltip);
+	});
+
+	btn.addEventListener("focusout", () => {
+		tooltipFadeOut(tooltip);
+	});
+})
+
 // Function for choosing block files directory
 async function chooseDirectory() {
 	ipcRenderer.send("choose-directory-blk");
@@ -42,6 +65,22 @@ async function submitFunction() {
 	} else {
 		ipcRenderer.send("submit-error")
 	}
+}
+
+// fadein animation for tooltip
+function tooltipFadeIn(tooltip: HTMLElement) {
+	tooltip.style.visibility = "visible";
+	tooltip.classList.remove("fadeOut");
+	tooltip.classList.add("fadeIn");
+}
+
+// fadeout animation for tooltip
+function tooltipFadeOut(tooltip: HTMLElement) {
+	tooltip.classList.remove("fadeIn");
+	tooltip.classList.add("fadeOut");
+	setTimeout(() => {
+		tooltip.style.visibility = "hidden";
+	}, 200);
 }
 
 // Initialize particles

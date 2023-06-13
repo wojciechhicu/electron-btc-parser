@@ -41,7 +41,7 @@ $highlight-color: #2d2e59;
 	width: 100%;
 	text-transform: uppercase;
 	height: 100%;
-	background-color: $highlight-color;
+	background-color: $secondary-color;
 	border-radius: 100%;
 	color: $color;
 	transition: all 0.5s;
@@ -204,13 +204,13 @@ $highlight-color: #2d2e59;
 		.fadeIn {
 			visibility: visible;
 			opacity: 0;
-			animation: fadeIn 0.3s linear forwards;
+			animation: fadeIn 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
 			animation-iteration-count: 1;
 		}
 		.fadeOut {
 			visibility: visible;
 			opacity: 1;
-			animation: fadeOut 0.3s linear forwards;
+			animation: fadeOut 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
 			animation-iteration-count: 1;
 		}
 		.up {
