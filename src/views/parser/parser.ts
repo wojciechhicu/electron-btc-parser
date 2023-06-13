@@ -58,6 +58,7 @@ setInterval(() => {
 	ipcRenderer.send("systemInfo");
 	ipcRenderer.on("systemInfoResponse", (ev, arg: iSystemInfo) => {
 		chartUpdate(arg);
+		removeLoader()
 	});
 }, 5000);
 
@@ -125,4 +126,11 @@ function delayer(): Promise<void> {
 			}
 		}, 8000);
 	});
+}
+
+function removeLoader(): void{
+	const loaders: NodeListOf<HTMLElement> = document.querySelectorAll(".loader-container");
+	loaders.forEach((val)=>{
+		val.style.display = 'none'
+	})
 }

@@ -1,11 +1,91 @@
 <div class="parser-container">
         <div class="convert">
+                <div class="left-stats">
+                        <div class="cpuChart" id="cpu">
+                                <div class="loader-container">
+                                        <svg class="loader" version="1.1" id="Layer_1"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px"
+                                                height="30px" viewBox="0 0 24 30"
+                                                style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                                                <rect x="0" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                                <rect x="10" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0.15s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0.15s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                                <rect x="20" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0.3s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0.3s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                        </svg>
+                                </div>
+                                <div class="chartLineCPU">
+                                        <div class="cpuInside" id="cpuPercent">
+                                                10%
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="memoryChart" id="memory">
+                                <div class="loader-container">
+                                        <svg class="loader" version="1.1" id="Layer_1"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px"
+                                                height="30px" viewBox="0 0 24 30"
+                                                style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                                                <rect x="0" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                                <rect x="10" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0.15s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0.15s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                                <rect x="20" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0.3s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0.3s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                        </svg>
+                                </div>
+                                <div class="chartLineMemory">
+                                        <div class="memInside" id="memPercent">
+                                                11%
+                                        </div>
+                                </div>
+                        </div>
+                </div>
                 <div class="main">
                         <div class="up">
                                 <button class="card card1" id="card1">
                                         <div class="tooltip1 tooltip" id="tooltip1">
                                                 Verify the correct order of the blocks.
-                                        </div>                                               
+                                        </div>
                                         <svg class="protect" xmlns="http://www.w3.org/2000/svg"
                                                 enable-background="new 0 0 20 20" height="35px" viewBox="0 0 20 20"
                                                 width="35px" fill="#000000">
@@ -25,7 +105,7 @@
                                 <button class="card card2" id="card2">
                                         <div class="tooltip2 tooltip" id="tooltip2">
                                                 Start converting the blocks.
-                                        </div>  
+                                        </div>
                                         <svg class="sync" xmlns="http://www.w3.org/2000/svg" height="30px"
                                                 viewBox="0 0 24 24" width="30px" fill="#000000">
                                                 <path d="M0 0h24v24H0z" fill="none" />
@@ -38,7 +118,7 @@
                                 <button class="card card3" id="card3">
                                         <div class="tooltip3 tooltip" id="tooltip3">
                                                 Delete all the converted blocks.
-                                        </div>  
+                                        </div>
                                         <svg class="delete" xmlns="http://www.w3.org/2000/svg" height="30px"
                                                 viewBox="0 0 24 24" width="30px" fill="#000000">
                                                 <path d="M0 0h24v24H0z" fill="none" />
@@ -50,7 +130,7 @@
                                 <button class="card card4" id="card4">
                                         <div class="tooltip4 tooltip" id="tooltip4">
                                                 Back to directory settings page.
-                                        </div>  
+                                        </div>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="settings"
                                                 enable-background="new 0 0 24 24" height="30px" viewBox="0 0 24 24"
                                                 width="30px" fill="#000000">
@@ -63,64 +143,122 @@
                                 </button>
                         </div>
                 </div>
-        </div>
-        <div class="stats">
-                <div class="loader-container" id="loader">
-                        <svg class="loader" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px"
-                                viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-                                <rect x="0" y="13" width="4" height="5" fill="#333">
-                                        <animate attributeName="height" attributeType="XML" values="5;21;5" begin="0s"
-                                                dur="0.6s" repeatCount="indefinite" />
-                                        <animate attributeName="y" attributeType="XML" values="13; 5; 13" begin="0s"
-                                                dur="0.6s" repeatCount="indefinite" />
-                                </rect>
-                                <rect x="10" y="13" width="4" height="5" fill="#333">
-                                        <animate attributeName="height" attributeType="XML" values="5;21;5"
-                                                begin="0.15s" dur="0.6s" repeatCount="indefinite" />
-                                        <animate attributeName="y" attributeType="XML" values="13; 5; 13" begin="0.15s"
-                                                dur="0.6s" repeatCount="indefinite" />
-                                </rect>
-                                <rect x="20" y="13" width="4" height="5" fill="#333">
-                                        <animate attributeName="height" attributeType="XML" values="5;21;5" begin="0.3s"
-                                                dur="0.6s" repeatCount="indefinite" />
-                                        <animate attributeName="y" attributeType="XML" values="13; 5; 13" begin="0.3s"
-                                                dur="0.6s" repeatCount="indefinite" />
-                                </rect>
-                        </svg>
-                </div>
-                <div class="cpuChart" id="cpu">
-                        <div class="chartLineCPU">
-                                <div class="cpuInside" id="cpuPercent">
-                                        10%
+                <div class="right-stats">
+                        <div class="diskChart" id="disk1">
+                                <div class="loader-container">
+                                        <svg class="loader" version="1.1" id="Layer_1"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px"
+                                                height="30px" viewBox="0 0 24 30"
+                                                style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                                                <rect x="0" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                                <rect x="10" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0.15s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0.15s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                                <rect x="20" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0.3s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0.3s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                        </svg>
+                                </div>
+                                <div class="chartLineDisk">
+                                        <div class="diskInside" id="disk1Percent">
+                                                12%
+                                        </div>
                                 </div>
                         </div>
-                </div>
-                <div class="memoryChart" id="memory">
-                        <div class="chartLineMemory">
-                                <div class="memInside" id="memPercent">
-                                        11%
+                        <div class="disk2Chart" id="disk2">
+                                <div class="loader-container">
+                                        <svg class="loader" version="1.1" id="Layer_1"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px"
+                                                height="30px" viewBox="0 0 24 30"
+                                                style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                                                <rect x="0" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                                <rect x="10" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0.15s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0.15s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                                <rect x="20" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0.3s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0.3s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                        </svg>
+                                </div>
+                                <div class="chartLineDisk2">
+                                        <div class="disk2Inside" id="disk2Percent">
+                                                13%
+                                        </div>
                                 </div>
                         </div>
-                </div>
-                <div class="diskChart" id="disk1">
-                        <div class="chartLineDisk">
-                                <div class="diskInside" id="disk1Percent">
-                                        12%
+                        <div class="parsedChart" id="parsed">
+                                <div class="loader-container">
+                                        <svg class="loader" version="1.1" id="Layer_1"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px"
+                                                height="30px" viewBox="0 0 24 30"
+                                                style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                                                <rect x="0" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                                <rect x="10" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0.15s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0.15s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                                <rect x="20" y="13" width="4" height="5" fill="#333">
+                                                        <animate attributeName="height" attributeType="XML"
+                                                                values="5;21;5" begin="0.3s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                        <animate attributeName="y" attributeType="XML"
+                                                                values="13; 5; 13" begin="0.3s" dur="0.6s"
+                                                                repeatCount="indefinite" />
+                                                </rect>
+                                        </svg>
                                 </div>
-                        </div>
-                </div>
-                <div class="disk2Chart" id="disk2">
-                        <div class="chartLineDisk2">
-                                <div class="disk2Inside" id="disk2Percent">
-                                        13%
-                                </div>
-                        </div>
-                </div>
-                <div class="parsedChart" id="parsed">
-                        <div class="chartLineParsed">
-                                <div class="parsedInside" id="parsedPercent">
-                                        14%
+                                <div class="chartLineParsed">
+                                        <div class="parsedInside" id="parsedPercent">
+                                                14%
+                                        </div>
                                 </div>
                         </div>
                 </div>
