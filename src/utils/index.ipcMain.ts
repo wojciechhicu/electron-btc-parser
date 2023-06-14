@@ -160,6 +160,9 @@ export function createLastBlockFile(path: string): void {
 	}
 }
 
+/**
+ * Delete all converted data and every corellated data.
+ */
 export async function deleteParsedData(): Promise<void> {
 	try{
 		const config = readFileSync(path.join(__dirname, "../data/config.json"), "utf8");
@@ -177,6 +180,10 @@ export async function deleteParsedData(): Promise<void> {
 	}
 }
 
+/**
+ * Delete last block file by changing the data to empty object
+ * @param path path to last block file
+ */
 function deleteLastBlock(path: string): void {
 	const fullPath = path + "/lastBlk.json";
 	const emptyObj = {};
@@ -184,6 +191,12 @@ function deleteLastBlock(path: string): void {
 	writeFileSync(fullPath, emptyJson, "utf8");
 }
 
+/**
+ * Delete all data in dir.
+ * 
+ * Used to delete converted blocks and converted transactions dir
+ * @param path path to dir
+ */
 async function deleteFullJSONDir(path: string): Promise<void> {
 	try{
 		new Promise((resolve, reject)=>{
@@ -203,6 +216,10 @@ async function deleteFullJSONDir(path: string): Promise<void> {
 	}
 }
 
+/**
+ * Delete all orphans blocks data by making them empty arrays
+ * @param path path to orphans blocks directory
+ */
 async function deleteOrphansDir(path: string): Promise<void> {
 	try{
 		new Promise((resolve, reject)=>{
