@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync, watch} from "fs";
 import { appConfig } from "./data/config.interface";
 import { cpus } from "os";
 import { exec } from "child_process";
-import { checkSystemInfoStats, createDirectory, createLastBlockFile } from "./utils/index.ipcMain";
+import { checkSystemInfoStats, createDirectory, createLastBlockFile, deleteParsedData } from "./utils/index.ipcMain";
 import { quote } from "shell-quote";
 import { logs } from "./data/logs.interface";
 
@@ -278,6 +278,19 @@ app.on("ready", () => {
 			buttons: ["OK"]
 		});
 	});
+
+	ipcMain.on("deleteParsedData", ()=>{
+		dialog.showMessageBox(mainWindow, {
+			type: 'question',
+			message: 'Are You shure about deleting all parsed data?',
+			title: 'Delete all data?',
+			buttons: ['Yes', 'No'],
+		}).then((btn)=>{
+			if(btn.response === 0){
+				deleteParsedData();
+			}
+		})
+	})
 });
 
 // Listen for the "window-all-closed" event from the Electron app.

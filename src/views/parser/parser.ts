@@ -16,9 +16,7 @@ const disk1percentage = document.getElementById("disk1Percent") as HTMLElement;
 const disk2 = document.getElementById("disk2") as HTMLElement;
 const disk2percentage = document.getElementById("disk2Percent") as HTMLElement;
 const converted = document.getElementById("parsed") as HTMLElement;
-const convertedpercentage = document.getElementById(
-	"parsedPercent"
-) as HTMLElement;
+const convertedpercentage = document.getElementById("parsedPercent") as HTMLElement;
 
 // tooltips and cards for main menu
 const cards: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".card");
@@ -26,7 +24,10 @@ const tooltips: NodeListOf<HTMLElement> = document.querySelectorAll(".tooltip");
 
 // cards click events
 const settings = document.getElementById("card4") as HTMLButtonElement;
+const deleteParsedData = document.getElementById("card3") as HTMLButtonElement;
+
 settings.addEventListener("click", navigateSettings);
+deleteParsedData.addEventListener("click", deleteData)
 
 // add listeners for cards / buttons
 cards.forEach((card, index) => {
@@ -93,23 +94,7 @@ ipcRenderer.on("getLogs", async (ev, arg: logs[]) => {
 		consoleTextarea.value = "/console \n";
 		arg.forEach((v) => {
 			const logTime = new Date(v.time);
-			const formattedTime = `${logTime.getFullYear()}/${(
-				logTime.getMonth() + 1
-			)
-				.toString()
-				.padStart(2, "0")}/${logTime
-				.getDate()
-				.toString()
-				.padStart(2, "0")} - ${logTime
-				.getHours()
-				.toString()
-				.padStart(2, "0")}:${logTime
-				.getMinutes()
-				.toString()
-				.padStart(2, "0")}:${logTime
-				.getSeconds()
-				.toString()
-				.padStart(2, "0")}`;
+			const formattedTime = `${logTime.getFullYear()}/${(logTime.getMonth() + 1).toString().padStart(2, "0")}/${logTime.getDate().toString().padStart(2, "0")} - ${logTime.getHours().toString().padStart(2, "0")}:${logTime.getMinutes().toString().padStart(2, "0")}:${logTime.getSeconds().toString().padStart(2, "0")}`;
 			const log = v.log;
 			consoleTextarea.value += `${formattedTime} > ${log}\n`;
 		});
@@ -121,9 +106,7 @@ ipcRenderer.on("getLogs", async (ev, arg: logs[]) => {
 function chartUpdate(update: iSystemInfo): void {
 	const cpuUsage = update.cpu.usage;
 	const usedMem = update.memory.total - update.memory.free;
-	const percent = Number(
-		((usedMem / update.memory.total) * 100).toFixed(0)
-	);
+	const percent = Number(((usedMem / update.memory.total) * 100).toFixed(0));
 
 	cpu.style.background = `conic-gradient(#00A0F7 0%, #00A0F7 ${cpuUsage}%, #44447A 0%, #44447A 100%)`;
 	cpupercentage.innerHTML = `${cpuUsage}%`;
@@ -141,8 +124,7 @@ function chartUpdate(update: iSystemInfo): void {
  * When data about stats is loaded remove loaders from charts
  */
 function removeLoader(): void {
-	const loaders: NodeListOf<HTMLElement> =
-		document.querySelectorAll(".loader-container");
+	const loaders: NodeListOf<HTMLElement> = document.querySelectorAll(".loader-container");
 	loaders.forEach((val) => {
 		val.style.display = "none";
 	});
@@ -155,15 +137,7 @@ function navigateSettings(): void {
 function navigateTo(baseFilesPath: string) {
 	const viewFrame = document.getElementById("content") as HTMLElement;
 
-	Promise.all([
-		fetch(`${baseFilesPath}.html`).then((response) =>
-			response.text()
-		),
-		fetch(`${baseFilesPath}.css`).then((response) =>
-			response.text()
-		),
-		fetch(`${baseFilesPath}.js`).then((response) => response.text())
-	])
+	Promise.all([fetch(`${baseFilesPath}.html`).then((response) => response.text()), fetch(`${baseFilesPath}.css`).then((response) => response.text()), fetch(`${baseFilesPath}.js`).then((response) => response.text())])
 		.then(([html, css, js]) => {
 			viewFrame.innerHTML = html;
 
@@ -178,4 +152,8 @@ function navigateTo(baseFilesPath: string) {
 		.catch((err) => {
 			console.error("Error while loading files: ", err);
 		});
+}
+
+function deleteData():void {
+	ipcRenderer.send('deleteParsedData');
 }
