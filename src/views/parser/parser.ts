@@ -91,7 +91,7 @@ ipcRenderer.on("getLogs", async (ev, arg: logs[]) => {
 			consoleTextarea.value = "logs";
 			return;
 		}
-		consoleTextarea.value = "/console \n";
+		consoleTextarea.value = "logs \n";
 		arg.forEach((v) => {
 			const logTime = new Date(v.time);
 			const formattedTime = `${logTime.getFullYear()}/${(logTime.getMonth() + 1).toString().padStart(2, "0")}/${logTime.getDate().toString().padStart(2, "0")} - ${logTime.getHours().toString().padStart(2, "0")}:${logTime.getMinutes().toString().padStart(2, "0")}:${logTime.getSeconds().toString().padStart(2, "0")}`;

@@ -169,6 +169,8 @@ export async function deleteParsedData(): Promise<void> {
 		const parsedConfig: appConfig = JSON.parse(config);
 		parsedConfig.parsedBlocksFiles = [];
 		parsedConfig.parsedRevsFiles = [];
+		const strConfig = JSON.stringify(parsedConfig, null, 2)
+		writeFileSync(path.join(__dirname, "../data/config.json"), strConfig, 'utf8')
 		deleteLastBlock(parsedConfig.lastBlockFilePath);
 		await deleteFullJSONDir(parsedConfig.parsedBlocksDirPath);
 		await deleteFullJSONDir(parsedConfig.transactionsRevsPath);
