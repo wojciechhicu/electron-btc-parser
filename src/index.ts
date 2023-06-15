@@ -69,7 +69,7 @@ app.on("ready", () => {
 	});
 
 	// Open devtools. Just for testing function.
-	mainWindow.webContents.openDevTools();
+	//mainWindow.webContents.openDevTools();
 
 	// Listen for the "minimize" event from the renderer process.
 	// Minimizes the main window.
@@ -290,6 +290,10 @@ app.on("ready", () => {
 				deleteParsedData();
 			}
 		})
+	})
+
+	ipcMain.on("startConverting", ()=>{
+		console.log('konwersja')
 	})
 });
 

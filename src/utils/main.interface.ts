@@ -11,4 +11,5 @@ export interface iSystemInfo {
 		second: number;
 	};
 	converted: number;
+	convertedRevs: number;
 }

@@ -27,6 +27,7 @@ export async function checkSystemInfoStats(): Promise<iSystemInfo> {
 	const disk1 = await getDiskUsagePercentage(disks[0]);
 	const disk2 = await getDiskUsagePercentage(disks[1]);
 	const parsed = getParsedFilesPerentege();
+	const parsedRevs = getParsedRevFilesPerentege()
 	const info: iSystemInfo = {
 		cpu: {
 			usage: 0 //data is updated in index.ts by python script
@@ -39,7 +40,8 @@ export async function checkSystemInfoStats(): Promise<iSystemInfo> {
 			first: disk1,
 			second: disk2
 		},
-		converted: parsed
+		converted: parsed,
+		convertedRevs: parsedRevs
 	};
 	return info;
 }
@@ -121,6 +123,56 @@ function getParsedBlkFiles(): number {
 		const config = readFileSync(path.join(__dirname, "../data/config.json"), "utf8");
 		const parsedConfig: appConfig = JSON.parse(config);
 		return parsedConfig.parsedBlocksFiles.length;
+	} catch (e: any) {
+		throw new Error(e);
+	}
+}
+
+/**
+ * How much % of blockchain is parsed
+ * @returns % of parsed files
+ */
+ function getParsedRevFilesPerentege(): number {
+	const files = getRevsFiles();
+	const parsedFiles = getParsedRevsFiles();
+	const percent = Math.ceil((parsedFiles / files) * 100);
+	if (files == 0 && parsedFiles == 0) {
+		return 100;
+	} else {
+		return percent;
+	}
+}
+
+/**
+ * How much revs files is in folder
+ * @returns number of revs files
+ */
+ function getRevsFiles(): number {
+	try {
+		const config = readFileSync(path.join(__dirname, "../data/config.json"), "utf8");
+		const parsedConfig: appConfig = JSON.parse(config);
+		const files = readdirSync(parsedConfig.blocksDirPath);
+		const filteredFiles = files.filter((file) => {
+			const fileExtension = path.extname(file); // Pobierz rozszerzenie pliku
+			const fileName = path.basename(file, fileExtension); // Pobierz nazwę pliku bez rozszerzenia
+
+			return fileName.startsWith("rev") && fileExtension === ".dat";
+		});
+		return filteredFiles.length;
+	} catch (e: any) {
+		throw new Error(e);
+	}
+}
+
+/**
+ * How much revs are parsed
+ * @returns number of revs files
+ */
+function getParsedRevsFiles(): number {
+	try {
+		const config = readFileSync(path.join(__dirname, "../data/config.json"), "utf8");
+		const parsedConfig: appConfig = JSON.parse(config);
+		return parsedConfig.parsedRevsFiles.length;
 	} catch (e: any) {
 		throw new Error(e);
 	}
