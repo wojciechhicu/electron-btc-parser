@@ -1,8 +1,9 @@
 {
-	"blocksDirPath": "",
-	"parsedBlocksDirPath": "",
-	"orphanBlocksPath": "",
-	"lastBlockFilePath": "",
-	"parsedBlocksFiles": [],
-	"parsedRevsFiles": []
+	"blocksDirPath": "E:/BTC/blocks",
+	"parsedBlocksDirPath": "O:/parsed_blocks/blocks",
+	"orphanBlocksPath": "O:/parsed_blocks/orphans",
+	"transactionsRevsPath": "O:/parsed_blocks/revs",
+	"lastBlockFilePath": "O:/parsed_blocks",
+	"parsedBlocksFiles": ["test", "test2"],
+	"parsedRevsFiles": ["test1", "test2"]
 }

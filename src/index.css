@@ -1,106 +1,107 @@
 @font-face {
-	font-family: "Calibri";
-	src: url("./assets/fonts/CALIBRI.TTF") format("truetype");
+  font-family: "Calibri";
+  src: url("./assets/fonts/CALIBRI.TTF") format("truetype");
 }
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
 body,
 html {
-	height: 100%;
-	width: 100%;
-	font-family: "Calibri", sans-serif;
-	overflow: hidden;
-}
-.top-nav {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	height: 30px;
-	background-color: #2a313e;
-	-webkit-app-region: drag;
-	color: white;
-}
-.nav-btn {
-	height: 100%;
-	width: 41px;
-	display: flex;
-	padding: 2px;
-	border: none;
-	background-color: #2a313e;
-	transition: background 0.3s, box-shadow 0.3s;
-	cursor: pointer;
-	justify-content: center;
-	-webkit-app-region: no-drag;
-}
-.nav-btn:hover {
-	background-color: #353d4d;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-.nav-btn:focus {
-	outline: none;
-	background-color: #353d4d;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-.nav-btn svg {
-	fill: #b9bdc4;
-	max-height: 100%;
-}
-.close-btn:hover {
-	background-color: #ff0000;
-}
-.close-btn:focus {
-	background-color: #ff0000;
-}
-.close-btn:hover svg {
-	fill: white;
-}
-.close-btn:focus svg {
-	fill: white;
-}
-.max-window {
-	transform: scale(0.8);
-}
-.min-window {
-	transform: translateY(-25%);
-}
-.hide {
-	display: none !important;
-}
-.bradning {
-	display: inline-flex;
-	align-items: center;
-	height: 30px;
-	padding: 2px;
-}
-.logo svg {
-	height: 22px;
-	transform: translateY(2px);
-	fill: #f0b90b;
-}
-.wrapper {
-	display: inline-flex;
-	height: 30px;
-}
-.content {
-	width: 100%;
-	height: calc(100% - 30px);
+  height: 100%;
+  width: 100%;
+  font-family: "Calibri", sans-serif;
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {
-	width: 10px; /* szerokość paska przewijania */
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-	background: #f1f1f1; /* kolor tła paska przewijania */
+  background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #888; /* kolor samego paska przewijania */
+  background: #888;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: #555; /* kolor paska przewijania po najechaniu kursorem */
+  background: #555;
 }
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  background-color: #2a313e;
+  -webkit-app-region: drag;
+  color: white;
+}
+.top-nav .bradning {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 2px;
+}
+.top-nav .bradning svg {
+  height: 22px;
+  transform: translateY(2px);
+  fill: #f0b90b;
+}
+.top-nav .wrapper {
+  display: inline-flex;
+  height: 30px;
+}
+.top-nav .wrapper .nav-btn {
+  height: 100%;
+  width: 41px;
+  display: flex;
+  padding: 2px;
+  border: none;
+  background-color: #2a313e;
+  transition: background 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  justify-content: center;
+  -webkit-app-region: no-drag;
+}
+.top-nav .wrapper .nav-btn:hover {
+  outline: none;
+  background-color: #353d4d;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.top-nav .wrapper .nav-btn:focus {
+  outline: none;
+  background-color: #353d4d;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.top-nav .wrapper .nav-btn svg {
+  fill: #b9bdc4;
+  max-height: 100%;
+}
+.top-nav .wrapper .nav-btn .min-window {
+  transform: translateY(-25%);
+}
+.top-nav .wrapper .hide {
+  display: none !important;
+}
+.top-nav .wrapper .close-btn:hover {
+  background-color: #ff0000;
+}
+.top-nav .wrapper .close-btn:hover svg {
+  fill: white;
+}
+.top-nav .wrapper .close-btn:focus {
+  background-color: #ff0000;
+}
+.top-nav .wrapper .close-btn:focus svg {
+  fill: white;
+}
+
+.content {
+  width: 100%;
+  height: calc(100% - 30px);
+}/*# sourceMappingURL=index.css.map */

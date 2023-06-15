@@ -1,5 +1,6 @@
 import { ipcRenderer } from "electron";
 import { appConfig } from "./data/config.interface";
+import { navigateTo } from './utils/navigateto'
 
 // Function to handle the DOMContentLoaded event
 document.addEventListener("DOMContentLoaded", () => {
@@ -15,26 +16,34 @@ document.addEventListener("DOMContentLoaded", () => {
 	exitMaxWindow?.addEventListener("click", exitMaxWindowF);
 	closeWindowEl?.addEventListener("click", closeWindow);
 
-	// Function to minimize the window
+	/**
+	 * Function to minimize the window
+	 */
 	function minimizeWindow() {
 		ipcRenderer.send("minimize");
 	}
 
-	// Function to toggle fullscreen mode
+	/**
+	 * Function to toggle fullscreen mode
+	 */
 	function toggleFullScreen() {
 		ipcRenderer.send("maximize");
 		maxWindow?.classList.toggle("hide");
 		exitMaxWindow?.classList.toggle("hide");
 	}
 
-	// Function to exit fullscreen mode
+	/**
+	 * Function to exit fullscreen mode
+	 */
 	function exitMaxWindowF() {
 		ipcRenderer.send("exitMaxWindow");
 		maxWindow?.classList.toggle("hide");
 		exitMaxWindow?.classList.toggle("hide");
 	}
 
-	// Function to close the window
+	/**
+	 *  Function to close the window
+	 */
 	function closeWindow() {
 		ipcRenderer.send("closeWindow");
 	}
@@ -76,44 +85,5 @@ document.addEventListener("DOMContentLoaded", () => {
 		);
 	}
 
-	// Function to navigate to a different view
-	function navigateTo(baseFilesPath: string) {
-		const viewFrame = document.getElementById("content");
-		if (viewFrame !== null) {
-			Promise.all([
-				fetch(`${baseFilesPath}.html`).then(
-					(response) => response.text()
-				),
-				fetch(`${baseFilesPath}.css`).then((response) =>
-					response.text()
-				),
-				fetch(`${baseFilesPath}.js`).then((response) =>
-					response.text()
-				)
-			])
-				.then(([html, css, js]) => {
-					viewFrame.innerHTML = html;
 
-					const styles =
-						document.createElement("style");
-					styles.textContent = css;
-					viewFrame.appendChild(styles);
-
-					const script =
-						document.createElement(
-							"script"
-						);
-					script.textContent = js;
-					viewFrame.appendChild(script);
-				})
-				.catch((err) => {
-					console.error(
-						"Error while loading files: ",
-						err
-					);
-				});
-		} else {
-			alert("Frame is null");
-		}
-	}
 });

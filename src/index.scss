@@ -1,0 +1,109 @@
+// GLOBAL STYLES
+@font-face {
+	font-family: "Calibri";
+	src: url("./assets/fonts/CALIBRI.TTF") format("truetype");
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body,
+html {
+	height: 100%;
+	width: 100%;
+	font-family: "Calibri", sans-serif;
+	overflow: hidden;
+}
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+// Navbar styles
+.top-nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 30px;
+	background-color: #2a313e;
+	-webkit-app-region: drag;
+	color: white;
+	.bradning {
+		display: inline-flex;
+		align-items: center;
+		height: 30px;
+		padding: 2px;
+		svg {
+			height: 22px;
+			transform: translateY(2px);
+			fill: #f0b90b;
+		}
+	}
+	.wrapper {
+		display: inline-flex;
+		height: 30px;
+		.nav-btn {
+			height: 100%;
+			width: 41px;
+			display: flex;
+			padding: 2px;
+			border: none;
+			background-color: #2a313e;
+			transition: background 0.3s, box-shadow 0.3s;
+			cursor: pointer;
+			justify-content: center;
+			-webkit-app-region: no-drag;
+			&:hover{
+				outline: none;
+				background-color: #353d4d;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+			}
+			&:focus{
+				outline: none;
+				background-color: #353d4d;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+			}
+			svg {
+				fill: #b9bdc4;
+				max-height: 100%;
+			}
+			.min-window {
+				transform: translateY(-25%);
+			}
+		}
+		.hide {
+			display: none !important;
+		}
+		.close-btn {
+			&:hover{
+				background-color: #ff0000;
+				svg {
+					fill: white;
+				}
+			}
+			&:focus{
+				background-color: #ff0000;
+				svg {
+					fill: white;
+				}
+			}
+			
+		}
+	}
+}
+.content {
+	width: 100%;
+	height: calc(100% - 30px);
+}

@@ -1,86 +1,66 @@
 <div class="parser-container">
         <div class="convert">
                 <div class="left-stats">
-                        <div class="cpuChart" id="cpu">
-                                <div class="loader-container">
-                                        <svg class="loader" version="1.1" id="Layer_1"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px"
-                                                height="30px" viewBox="0 0 24 30"
-                                                style="enable-background:new 0 0 50 50;" xml:space="preserve">
-                                                <rect x="0" y="13" width="4" height="5" fill="#333">
-                                                        <animate attributeName="height" attributeType="XML"
-                                                                values="5;21;5" begin="0s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                        <animate attributeName="y" attributeType="XML"
-                                                                values="13; 5; 13" begin="0s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                </rect>
-                                                <rect x="10" y="13" width="4" height="5" fill="#333">
-                                                        <animate attributeName="height" attributeType="XML"
-                                                                values="5;21;5" begin="0.15s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                        <animate attributeName="y" attributeType="XML"
-                                                                values="13; 5; 13" begin="0.15s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                </rect>
-                                                <rect x="20" y="13" width="4" height="5" fill="#333">
-                                                        <animate attributeName="height" attributeType="XML"
-                                                                values="5;21;5" begin="0.3s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                        <animate attributeName="y" attributeType="XML"
-                                                                values="13; 5; 13" begin="0.3s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                </rect>
-                                        </svg>
-                                </div>
-                                <div class="chartLineCPU">
-                                        <div class="cpuInside" id="cpuPercent">
-                                                10%
-                                        </div>
-                                </div>
-                        </div>
-                        <div class="memoryChart" id="memory">
-                                <div class="loader-container">
-                                        <svg class="loader" version="1.1" id="Layer_1"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px"
-                                                height="30px" viewBox="0 0 24 30"
-                                                style="enable-background:new 0 0 50 50;" xml:space="preserve">
-                                                <rect x="0" y="13" width="4" height="5" fill="#333">
-                                                        <animate attributeName="height" attributeType="XML"
-                                                                values="5;21;5" begin="0s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                        <animate attributeName="y" attributeType="XML"
-                                                                values="13; 5; 13" begin="0s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                </rect>
-                                                <rect x="10" y="13" width="4" height="5" fill="#333">
-                                                        <animate attributeName="height" attributeType="XML"
-                                                                values="5;21;5" begin="0.15s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                        <animate attributeName="y" attributeType="XML"
-                                                                values="13; 5; 13" begin="0.15s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                </rect>
-                                                <rect x="20" y="13" width="4" height="5" fill="#333">
-                                                        <animate attributeName="height" attributeType="XML"
-                                                                values="5;21;5" begin="0.3s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                        <animate attributeName="y" attributeType="XML"
-                                                                values="13; 5; 13" begin="0.3s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                </rect>
-                                        </svg>
-                                </div>
-                                <div class="chartLineMemory">
-                                        <div class="memInside" id="memPercent">
-                                                11%
-                                        </div>
-                                </div>
-                        </div>
+                        <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="100" height="100"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none"
+                                        cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                <circle id="cpu" class="circle-chart__circle" stroke="#00acc1" stroke-width="2"
+                                        stroke-dasharray="11,100" stroke-linecap="round" fill="none" cx="16.91549431"
+                                        cy="16.91549431" r="15.91549431" />
+                                <g class="circle-chart__info">
+                                        <text id="cpuPercent" class="circle-chart__percent" x="16.91549431" y="15.5"
+                                                alignment-baseline="central" text-anchor="middle"
+                                                font-size="8">11%</text>
+                                        <text class="circle-chart__subline" x="16.91549431" y="20.5"
+                                                alignment-baseline="central" text-anchor="middle"
+                                                font-size="2">CPU</text>
+                                </g>
+                        </svg>
+                        <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="100" height="100"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none"
+                                        cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                <circle id="memory" class="circle-chart__circle" stroke="#00acc1" stroke-width="2"
+                                        stroke-dasharray="12,100" stroke-linecap="round" fill="none" cx="16.91549431"
+                                        cy="16.91549431" r="15.91549431" />
+                                <g class="circle-chart__info">
+                                        <text id="memPercent" class="circle-chart__percent" x="16.91549431" y="15.5"
+                                                alignment-baseline="central" text-anchor="middle"
+                                                font-size="8">12%</text>
+                                        <text class="circle-chart__subline" x="16.91549431" y="20.5"
+                                                alignment-baseline="central" text-anchor="middle"
+                                                font-size="2">RAM</text>
+                                </g>
+                        </svg>
+                        <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="100" height="100"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none"
+                                cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                        <circle id="parsed2" class="circle-chart__circle" stroke="#00acc1" stroke-width="2"
+                                stroke-dasharray="13,100" stroke-linecap="round" fill="none" cx="16.91549431"
+                                cy="16.91549431" r="15.91549431" />
+                        <g class="circle-chart__info">
+                                <text id="parsedPercent2" class="circle-chart__percent" x="16.91549431" y="15.5"
+                                        alignment-baseline="central" text-anchor="middle"
+                                        font-size="8">13%</text>
+                                <text class="circle-chart__subline" x="16.91549431" y="20.5"
+                                        alignment-baseline="central" text-anchor="middle" font-size="2">PARSED BLK</text>
+                        </g>
+                </svg>
                 </div>
                 <div class="main">
+                        <div class="honey-container" id="honey">
+                                <div class="honeycomb">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                </div>
+                        </div>
                         <div class="up">
                                 <button class="card card1" id="card1">
                                         <div class="tooltip1 tooltip" id="tooltip1">
@@ -144,85 +124,39 @@
                         </div>
                 </div>
                 <div class="right-stats">
-                        <div class="diskChart" id="disk1">
-                                <div class="loader-container">
-                                        <svg class="loader" version="1.1" id="Layer_1"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px"
-                                                height="30px" viewBox="0 0 24 30"
-                                                style="enable-background:new 0 0 50 50;" xml:space="preserve">
-                                                <rect x="0" y="13" width="4" height="5" fill="#333">
-                                                        <animate attributeName="height" attributeType="XML"
-                                                                values="5;21;5" begin="0s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                        <animate attributeName="y" attributeType="XML"
-                                                                values="13; 5; 13" begin="0s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                </rect>
-                                                <rect x="10" y="13" width="4" height="5" fill="#333">
-                                                        <animate attributeName="height" attributeType="XML"
-                                                                values="5;21;5" begin="0.15s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                        <animate attributeName="y" attributeType="XML"
-                                                                values="13; 5; 13" begin="0.15s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                </rect>
-                                                <rect x="20" y="13" width="4" height="5" fill="#333">
-                                                        <animate attributeName="height" attributeType="XML"
-                                                                values="5;21;5" begin="0.3s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                        <animate attributeName="y" attributeType="XML"
-                                                                values="13; 5; 13" begin="0.3s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                </rect>
-                                        </svg>
-                                </div>
-                                <div class="chartLineDisk">
-                                        <div class="diskInside" id="disk1Percent">
-                                                12%
-                                        </div>
-                                </div>
-                        </div>
-                        <div class="disk2Chart" id="disk2">
-                                <div class="loader-container">
-                                        <svg class="loader" version="1.1" id="Layer_1"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px"
-                                                height="30px" viewBox="0 0 24 30"
-                                                style="enable-background:new 0 0 50 50;" xml:space="preserve">
-                                                <rect x="0" y="13" width="4" height="5" fill="#333">
-                                                        <animate attributeName="height" attributeType="XML"
-                                                                values="5;21;5" begin="0s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                        <animate attributeName="y" attributeType="XML"
-                                                                values="13; 5; 13" begin="0s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                </rect>
-                                                <rect x="10" y="13" width="4" height="5" fill="#333">
-                                                        <animate attributeName="height" attributeType="XML"
-                                                                values="5;21;5" begin="0.15s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                        <animate attributeName="y" attributeType="XML"
-                                                                values="13; 5; 13" begin="0.15s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                </rect>
-                                                <rect x="20" y="13" width="4" height="5" fill="#333">
-                                                        <animate attributeName="height" attributeType="XML"
-                                                                values="5;21;5" begin="0.3s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                        <animate attributeName="y" attributeType="XML"
-                                                                values="13; 5; 13" begin="0.3s" dur="0.6s"
-                                                                repeatCount="indefinite" />
-                                                </rect>
-                                        </svg>
-                                </div>
-                                <div class="chartLineDisk2">
-                                        <div class="disk2Inside" id="disk2Percent">
-                                                13%
-                                        </div>
-                                </div>
-                        </div>
-                        <div class="parsedChart" id="parsed">
+                        <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="100" height="100"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none"
+                                        cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                <circle id="disk1" class="circle-chart__circle" stroke="#00acc1" stroke-width="2"
+                                        stroke-dasharray="14,100" stroke-linecap="round" fill="none" cx="16.91549431"
+                                        cy="16.91549431" r="15.91549431" />
+                                <g class="circle-chart__info">
+                                        <text id="disk1Percent" class="circle-chart__percent" x="16.91549431" y="15.5"
+                                                alignment-baseline="central" text-anchor="middle"
+                                                font-size="8">14%</text>
+                                        <text class="circle-chart__subline" x="16.91549431" y="20.5"
+                                                alignment-baseline="central" text-anchor="middle" font-size="2">DISK
+                                                1</text>
+                                </g>
+                        </svg>
+                        <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="100" height="100"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none"
+                                        cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                                <circle id="disk2" class="circle-chart__circle" stroke="#00acc1" stroke-width="2"
+                                        stroke-dasharray="15,100" stroke-linecap="round" fill="none" cx="16.91549431"
+                                        cy="16.91549431" r="15.91549431" />
+                                <g class="circle-chart__info">
+                                        <text id="disk2Percent" class="circle-chart__percent" x="16.91549431" y="15.5"
+                                                alignment-baseline="central" text-anchor="middle"
+                                                font-size="8">15%</text>
+                                        <text class="circle-chart__subline" x="16.91549431" y="20.5"
+                                                alignment-baseline="central" text-anchor="middle" font-size="2">DISK
+                                                2</text>
+                                </g>
+                        </svg>
+                        <!-- <div class="parsedChart" id="parsed">
                                 <div class="loader-container">
                                         <svg class="loader" version="1.1" id="Layer_1"
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -260,7 +194,23 @@
                                                 14%
                                         </div>
                                 </div>
-                        </div>
+                        </div> -->
+                        <svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" width="100" height="100"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none"
+                                cx="16.91549431" cy="16.91549431" r="15.91549431" />
+                        <circle id="parsed" class="circle-chart__circle" stroke="#00acc1" stroke-width="2"
+                                stroke-dasharray="16,100" stroke-linecap="round" fill="none" cx="16.91549431"
+                                cy="16.91549431" r="15.91549431" />
+                        <g class="circle-chart__info">
+                                <text id="parsedPercent" class="circle-chart__percent" x="16.91549431" y="15.5"
+                                        alignment-baseline="central" text-anchor="middle"
+                                        font-size="8">16%</text>
+                                <text class="circle-chart__subline" x="16.91549431" y="20.5"
+                                        alignment-baseline="central" text-anchor="middle" font-size="2">PARSED REV</text>
+                        </g>
+                </svg>
+                        
                 </div>
         </div>
 </div>

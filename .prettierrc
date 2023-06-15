@@ -15,6 +15,7 @@
         "proseWrap": "preserve",
         "htmlWhitespaceSensitivity": "css",
         "vueIndentScriptAndStyle": false,
+        "printWidth": 1000,
         "endOfLine": "auto",
         "embeddedLanguageFormatting": "auto"
 }

@@ -1,13 +1,11 @@
-import { app, BrowserWindow, Menu, ipcMain, dialog, CPUUsage } from "electron";
+import { app, BrowserWindow, ipcMain, dialog } from "electron";
 import * as path from "path";
-import { readFileSync, writeFileSync, writeFile, watch } from "fs";
+import { readFileSync, writeFileSync, watch} from "fs";
 import { appConfig } from "./data/config.interface";
-import { cpus, totalmem, loadavg } from "os";
-import { exec } from 'child_process';
-import { formatBytes, iSystemInfo, checkSystemInfoStats } from "./utils/index.ipcMain";
-import { quote } from 'shell-quote'
-
-import * as info from 'systeminformation'
+import { cpus } from "os";
+import { exec } from "child_process";
+import { checkSystemInfoStats, createDirectory, createLastBlockFile, deleteParsedData } from "./utils/index.ipcMain";
+import { quote } from "shell-quote";
 import { logs } from "./data/logs.interface";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -44,10 +42,7 @@ app.on("ready", () => {
 		minWidth: 1110,
 		minHeight: 650,
 		title: "Bitcoin parser",
-		icon: path.join(
-			__dirname,
-			"./assets/api_FILL0_wght400_GRAD0_opsz48.png"
-		),
+		icon: path.join(__dirname, "./assets/api_FILL0_wght400_GRAD0_opsz48.png"),
 		skipTaskbar: false,
 		frame: false,
 		focusable: true,
@@ -93,10 +88,7 @@ app.on("ready", () => {
 	// @param {Electron.IpcMainEvent} event - The event object.
 	// @param {any} arg - The argument passed from the renderer process (if any).
 	ipcMain.on("checkConfig", (event, arg) => {
-		const configFile = readFileSync(
-			path.join(__dirname, "./data/config.json"),
-			"utf8"
-		);
+		const configFile = readFileSync(path.join(__dirname, "./data/config.json"), "utf8");
 		const parsedConfig: appConfig = JSON.parse(configFile);
 		event.sender.send("checkConfigResponse", parsedConfig);
 	});
@@ -129,43 +121,20 @@ app.on("ready", () => {
 		})
 			.then((result) => {
 				// Check if the dialog was not canceled and a directory path was selected.
-				if (
-					!result.canceled &&
-					result.filePaths.length > 0
-				) {
+				if (!result.canceled && result.filePaths.length > 0) {
 					const folderPath = result.filePaths[0];
 
 					// Read the configuration file.
-					const configFile = readFileSync(
-						path.join(
-							__dirname,
-							"./data/config.json"
-						),
-						"utf8"
-					);
-					const parsedConfig: appConfig =
-						JSON.parse(configFile);
+					const configFile = readFileSync(path.join(__dirname, "./data/config.json"), "utf8");
+					const parsedConfig: appConfig = JSON.parse(configFile);
 
 					// Update the blocks directory path in the configuration.
-					parsedConfig.blocksDirPath =
-						folderPath.replace(/\\/g, "/");
-
+					parsedConfig.blocksDirPath = folderPath.replace(/\\/g, "/");
 					// Convert the updated configuration object to a string.
-					const stringConfig = JSON.stringify(
-						parsedConfig,
-						null,
-						2
-					);
+					const stringConfig = JSON.stringify(parsedConfig, null, 2);
 
 					// Write the updated configuration to the configuration file.
-					writeFileSync(
-						path.join(
-							__dirname,
-							"./data/config.json"
-						),
-						stringConfig,
-						"utf8"
-					);
+					writeFileSync(path.join(__dirname, "./data/config.json"), stringConfig, "utf8");
 
 					// Show a success message box.
 					dialog.showMessageBox(mainWindow, {
@@ -175,10 +144,7 @@ app.on("ready", () => {
 						buttons: ["OK"]
 					}).then((v) => {
 						// Send the updated blocks directory path back to the renderer process.
-						event.sender.send(
-							"pickedBlkDirectory",
-							parsedConfig.blocksDirPath
-						);
+						event.sender.send("pickedBlkDirectory", parsedConfig.blocksDirPath);
 					});
 				}
 			})
@@ -194,33 +160,31 @@ app.on("ready", () => {
 	});
 
 	ipcMain.on("systemInfo", (event, arg) => {
-		const scriptPath = path.resolve(__dirname, 'scripts', 'cpu_usage.py');
+		const scriptPath = path.resolve(__dirname, "scripts", "cpu_usage.py");
 		const quotedScriptPath = quote([scriptPath]);
-		exec(`python ${quotedScriptPath}`, async (err, stdout, stderr)=>{
-			if(err){
+		exec(`python ${quotedScriptPath}`, async (err, stdout, stderr) => {
+			if (err) {
 				dialog.showMessageBox({
 					type: "error",
 					title: "Error",
 					message: String(err),
 					buttons: ["OK"]
-				})
-				return
-			}else if(stderr){
+				});
+				return;
+			} else if (stderr) {
 				dialog.showMessageBox({
 					type: "error",
 					title: "Error",
 					message: String(stderr),
 					buttons: ["OK"]
-				})
-				
+				});
 			} else {
 				let stats = await checkSystemInfoStats();
 				stats.cpu.usage = Number(stdout) * 10;
 				event.sender.send("systemInfoResponse", stats);
 			}
-		})
-	})
-
+		});
+	});
 
 	// Listen for the "choose-directory-parsed-blk" event from the renderer process.
 	// Opens a dialog for selecting a directory and saves the chosen directory path in the configuration file for parsed blocks.
@@ -232,51 +196,29 @@ app.on("ready", () => {
 		})
 			.then((result) => {
 				// Check if the dialog was not canceled and a directory path was selected.
-				if (
-					!result.canceled &&
-					result.filePaths.length > 0
-				) {
+				if (!result.canceled && result.filePaths.length > 0) {
 					const folderPath = result.filePaths[0];
 
 					// Read the configuration file.
-					const configFile = readFileSync(
-						path.join(
-							__dirname,
-							"./data/config.json"
-						),
-						"utf8"
-					);
-					const parsedConfig: appConfig =
-						JSON.parse(configFile);
-					const directory = folderPath.replace(
-						/\\/g,
-						"/"
-					);
+					const configFile = readFileSync(path.join(__dirname, "./data/config.json"), "utf8");
+					const parsedConfig: appConfig = JSON.parse(configFile);
+					const directory = folderPath.replace(/\\/g, "/");
 
 					// Update the directory paths in the configuration for parsed blocks.
-					parsedConfig.parsedBlocksDirPath =
-						directory;
-					parsedConfig.orphanBlocksPath =
-						directory;
-					parsedConfig.lastBlockFilePath =
-						directory;
+					parsedConfig.parsedBlocksDirPath = directory + '/blocks';
+					createDirectory(directory + '/blocks');
+					parsedConfig.orphanBlocksPath = directory + '/orphans';
+					createDirectory(directory + '/orphans');
+					parsedConfig.lastBlockFilePath = directory;
+					parsedConfig.transactionsRevsPath = directory + '/revs';
+					createDirectory(directory + '/revs');
+					createLastBlockFile(directory);
 
 					// Convert the updated configuration object to a string.
-					const stringConfig = JSON.stringify(
-						parsedConfig,
-						null,
-						2
-					);
+					const stringConfig = JSON.stringify(parsedConfig, null, 2);
 
 					// Write the updated configuration to the configuration file.
-					writeFileSync(
-						path.join(
-							__dirname,
-							"./data/config.json"
-						),
-						stringConfig,
-						"utf8"
-					);
+					writeFileSync(path.join(__dirname, "./data/config.json"), stringConfig, "utf8");
 
 					// Show a success message box.
 					dialog.showMessageBox(mainWindow, {
@@ -286,10 +228,7 @@ app.on("ready", () => {
 						buttons: ["OK"]
 					}).then((v) => {
 						// Send the updated parsed blocks directory path back to the renderer process.
-						event.sender.send(
-							"pickedParsedBlkDirectory",
-							parsedConfig.parsedBlocksDirPath
-						);
+						event.sender.send("pickedParsedBlkDirectory", parsedConfig.parsedBlocksDirPath);
 					});
 				}
 			})
@@ -304,29 +243,32 @@ app.on("ready", () => {
 			});
 	});
 
+	// On page loaded send logs file
 	ipcMain.on("getLogsInit", () => {
-		const logs = readFileSync(path.join(__dirname, 'data/logs.json'), 'utf8');
+		const logs = readFileSync(path.join(__dirname, "data/logs.json"), "utf8");
 
 		//sometimes watch run 2 times and one of this is with empty data.
 		//this will protect json.parse for empty arrays.
-		if(logs.length >= 2){
+		if (logs.length >= 2) {
 			const parsedLogs: logs[] = JSON.parse(logs);
-			mainWindow.webContents.send('getLogs', parsedLogs)
+			mainWindow.webContents.send("getLogs", parsedLogs);
 		}
 	});
-	watch(path.join(__dirname, 'data/logs.json'), (event, filename) =>{
-		if(event === 'change'){
-			const logs = readFileSync(path.join(__dirname, 'data/logs.json'), 'utf8');
+
+	// Listen on file change.
+	// On any file change send to renderer new logs file
+	watch(path.join(__dirname, "data/logs.json"), (event, filename) => {
+		if (event === "change") {
+			const logs = readFileSync(path.join(__dirname, "data/logs.json"), "utf8");
 
 			//sometimes watch run 2 times and one of this is with empty data.
 			//this will protect json.parse for empty arrays.
-			if(logs.length >= 2){
+			if (logs.length >= 2) {
 				const parsedLogs: logs[] = JSON.parse(logs);
-				mainWindow.webContents.send('getLogs', parsedLogs)
+				mainWindow.webContents.send("getLogs", parsedLogs);
 			}
-
 		}
-	})
+	});
 	// Show a warning dialog box if there is a submission error
 	ipcMain.on("submit-error", () => {
 		dialog.showMessageBox({
@@ -334,8 +276,25 @@ app.on("ready", () => {
 			title: "Submission error",
 			message: "Please enter all the data. The path to the blk*.dat blocks must be entered along with the field of converted blocks.",
 			buttons: ["OK"]
-		})
+		});
 	});
+
+	ipcMain.on("deleteParsedData", ()=>{
+		dialog.showMessageBox(mainWindow, {
+			type: 'question',
+			message: 'Are You shure about deleting all parsed data?',
+			title: 'Delete all data?',
+			buttons: ['Yes', 'No'],
+		}).then((btn)=>{
+			if(btn.response === 0){
+				deleteParsedData();
+			}
+		})
+	})
+
+	ipcMain.on("startConverting", ()=>{
+		console.log('konwersja')
+	})
 });
 
 // Listen for the "window-all-closed" event from the Electron app.
@@ -354,4 +313,3 @@ app.on("activate", () => {
 		createWindow();
 	}
 });
-
