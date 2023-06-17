@@ -29,10 +29,12 @@ const settings = document.getElementById("card4") as HTMLButtonElement;
 const deleteParsedData = document.getElementById("card3") as HTMLButtonElement;
 const startConverting = document.getElementById("card2") as HTMLButtonElement;
 const honey = document.getElementById("honey") as HTMLElement;
+const stop = document.getElementById("stop") as HTMLElement;
 
 settings.addEventListener("click", navigateSettings);
 deleteParsedData.addEventListener("click", deleteData);
 startConverting.addEventListener("click", convertStart);
+stop.addEventListener('click', convertStop);
 
 // add listeners for cards / buttons
 cards.forEach((card, index) => {
@@ -173,4 +175,14 @@ function deleteData(): void {
 function convertStart(): void {
 	ipcRenderer.send("startConverting");
 	honey.style.display = "flex";
+	cards.forEach((v)=>{
+		v.style.visibility = "hidden"
+	})
+}
+function convertStop(): void {
+	honey.style.display = "none";
+	cards.forEach((v)=>{
+		v.style.visibility = "visible"
+	})
+	ipcRenderer.send("stopConverting");
 }

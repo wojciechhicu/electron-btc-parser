@@ -4,6 +4,6 @@
 	"orphanBlocksPath": "O:/parsed_blocks/orphans",
 	"transactionsRevsPath": "O:/parsed_blocks/revs",
 	"lastBlockFilePath": "O:/parsed_blocks",
-	"parsedBlocksFiles": ["test", "test2"],
-	"parsedRevsFiles": ["test1", "test2"]
+	"parsedBlocksFiles": [],
+	"parsedRevsFiles": []
 }

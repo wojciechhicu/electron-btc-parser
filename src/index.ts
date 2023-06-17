@@ -1,12 +1,13 @@
 import { app, BrowserWindow, ipcMain, dialog } from "electron";
 import * as path from "path";
-import { readFileSync, writeFileSync, watch} from "fs";
+import { readFileSync, writeFileSync, watch } from "fs";
 import { appConfig } from "./data/config.interface";
 import { cpus } from "os";
 import { exec } from "child_process";
 import { checkSystemInfoStats, createDirectory, createLastBlockFile, deleteParsedData } from "./utils/index.ipcMain";
 import { quote } from "shell-quote";
 import { logs } from "./data/logs.interface";
+import { Worker } from "node:worker_threads";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -205,13 +206,13 @@ app.on("ready", () => {
 					const directory = folderPath.replace(/\\/g, "/");
 
 					// Update the directory paths in the configuration for parsed blocks.
-					parsedConfig.parsedBlocksDirPath = directory + '/blocks';
-					createDirectory(directory + '/blocks');
-					parsedConfig.orphanBlocksPath = directory + '/orphans';
-					createDirectory(directory + '/orphans');
+					parsedConfig.parsedBlocksDirPath = directory + "/blocks";
+					createDirectory(directory + "/blocks");
+					parsedConfig.orphanBlocksPath = directory + "/orphans";
+					createDirectory(directory + "/orphans");
 					parsedConfig.lastBlockFilePath = directory;
-					parsedConfig.transactionsRevsPath = directory + '/revs';
-					createDirectory(directory + '/revs');
+					parsedConfig.transactionsRevsPath = directory + "/revs";
+					createDirectory(directory + "/revs");
 					createLastBlockFile(directory);
 
 					// Convert the updated configuration object to a string.
@@ -279,22 +280,32 @@ app.on("ready", () => {
 		});
 	});
 
-	ipcMain.on("deleteParsedData", ()=>{
+	ipcMain.on("deleteParsedData", () => {
 		dialog.showMessageBox(mainWindow, {
-			type: 'question',
-			message: 'Are You shure about deleting all parsed data?',
-			title: 'Delete all data?',
-			buttons: ['Yes', 'No'],
-		}).then((btn)=>{
-			if(btn.response === 0){
+			type: "question",
+			message: "Are You shure about deleting all parsed data?",
+			title: "Delete all data?",
+			buttons: ["Yes", "No"]
+		}).then((btn) => {
+			if (btn.response === 0) {
 				deleteParsedData();
 			}
-		})
-	})
+		});
+	});
 
-	ipcMain.on("startConverting", ()=>{
-		console.log('konwersja')
-	})
+	let blockWorker: Worker | null = null;
+	ipcMain.on("startConverting", (ev, arg) => {
+		const workerPath = path.join(__dirname, "converter/blcks/blk.converter.js");
+		blockWorker = new Worker(workerPath);
+	});
+
+	ipcMain.on("stopConverting", () => {
+		blockWorker?.postMessage("stop");
+		// blockWorker.on('message', (v)=>{
+		// 	console.log(v);
+		// 	blockWorker = null;
+		// })
+	});
 });
 
 // Listen for the "window-all-closed" event from the Electron app.
