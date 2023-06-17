@@ -299,12 +299,33 @@ app.on("ready", () => {
 		blockWorker = new Worker(workerPath);
 	});
 
-	ipcMain.on("stopConverting", () => {
+	ipcMain.on("stopConverting", (event) => {
 		blockWorker?.postMessage("stop");
-		// blockWorker.on('message', (v)=>{
-		// 	console.log(v);
-		// 	blockWorker = null;
-		// })
+		blockWorker?.on('message', (v)=>{
+			if(v === 'stoped'){
+				event.sender.send('converterHasStoped');
+			}
+		})
+	});
+
+	let validaterWorker: Worker | null = null;
+	ipcMain.on("startValidating", (ev, arg) => {
+		const workerPath = path.join(__dirname, "converter/blcks/blk.validate.js");
+		validaterWorker = new Worker(workerPath);
+		validaterWorker?.on('message', (v)=>{
+			if(v === 'stoped'){
+				ev.sender.send('validaterHasStoped');
+			}
+		})
+	});
+
+	ipcMain.on("stopValidating", (eve) => {
+		validaterWorker?.postMessage("stop");
+		validaterWorker?.on('message', (v)=>{
+			if(v === 'stoped'){
+				eve.sender.send('validaterHasStoped');
+			}
+		})
 	});
 });
 

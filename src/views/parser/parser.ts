@@ -27,14 +27,24 @@ const tooltips: NodeListOf<HTMLElement> = document.querySelectorAll(".tooltip");
 // cards click events
 const settings = document.getElementById("card4") as HTMLButtonElement;
 const deleteParsedData = document.getElementById("card3") as HTMLButtonElement;
+
 const startConverting = document.getElementById("card2") as HTMLButtonElement;
 const honey = document.getElementById("honey") as HTMLElement;
-const stop = document.getElementById("stop") as HTMLElement;
+const honeyText = document.getElementById("honey-text") as HTMLElement;
+const stop = document.getElementById("stop") as HTMLButtonElement;
+
+const startValidating = document.getElementById("card1") as HTMLButtonElement;
+const honeyValidate = document.getElementById("honeyValidater") as HTMLElement;
+const honeyValidateText = document.getElementById("validater-honey-text") as HTMLElement;
+const stopValidate = document.getElementById("stopValidate") as HTMLButtonElement;
 
 settings.addEventListener("click", navigateSettings);
 deleteParsedData.addEventListener("click", deleteData);
 startConverting.addEventListener("click", convertStart);
 stop.addEventListener('click', convertStop);
+
+startValidating.addEventListener("click", validateStart);
+stopValidate.addEventListener('click', validateStop);
 
 // add listeners for cards / buttons
 cards.forEach((card, index) => {
@@ -109,6 +119,21 @@ ipcRenderer.on("getLogs", async (ev, arg: logs[]) => {
 	}
 });
 
+ipcRenderer.on("converterHasStoped", ()=>{
+	honey.style.display = "none";
+	cards.forEach((v)=>{
+		v.style.visibility = "visible";
+	})
+	stop.disabled = false;
+})
+
+ipcRenderer.on("validaterHasStoped", ()=>{
+	honeyValidate.style.display = "none";
+	cards.forEach((v)=>{
+		v.style.visibility = "visible";
+	})
+	stopValidate.disabled = false;
+})
 // stats charts update every 5s
 function chartUpdate(update: iSystemInfo): void {
 	const cpuUsage = update.cpu.usage;
@@ -180,9 +205,20 @@ function convertStart(): void {
 	})
 }
 function convertStop(): void {
-	honey.style.display = "none";
-	cards.forEach((v)=>{
-		v.style.visibility = "visible"
-	})
+	honeyText.innerHTML = "Stopping sonverter. Please wait"
 	ipcRenderer.send("stopConverting");
+	stop.disabled = true;
+}
+
+function validateStart(): void {
+	ipcRenderer.send("startValidating");
+	honeyValidate.style.display = "flex";
+	cards.forEach((v)=>{
+		v.style.visibility = "hidden"
+	})
+}
+function validateStop(): void {
+	honeyValidateText.innerHTML = "Stopping validater. Please wait"
+	ipcRenderer.send("stopValidating");
+	stopValidate.disabled = true;
 }

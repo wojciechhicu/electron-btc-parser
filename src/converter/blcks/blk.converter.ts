@@ -34,7 +34,7 @@ async function blockConverter() {
 	try {
 		while (work) {
 			const config = getConfig();
-			const rawBlkFiles = getBlkFiles(config.blocksDirPath);
+			const rawBlkFiles = await getBlkFiles(config.blocksDirPath);
 			const parsedBlkFiles = config.parsedBlocksFiles;
 			const filesToConvert = rawBlkFiles.filter((file) => !parsedBlkFiles.includes(file));
 			if (filesToConvert.length === 0) {
@@ -48,14 +48,14 @@ async function blockConverter() {
 			setNewConfig(config);
 
 			addLogs("Ordering blocks by hash...", Date.now());
-			const orderedBlocksANDOrphans = setBlockOrder(parsedData);
+			const orderedBlocksANDOrphans = await setBlockOrder(parsedData);
 			
 			addLogs("Writing blocks data to files", Date.now());
-			saveOrderedBlocks(orderedBlocksANDOrphans.ordered, filesToConvert[0]);
+			await saveOrderedBlocks(orderedBlocksANDOrphans.ordered, filesToConvert[0]);
 		
 			if(orderedBlocksANDOrphans.orphans){
 				addLogs("Writing orphan blocks data to files", Date.now());
-				saveOrphanBlocks(orderedBlocksANDOrphans.orphans);
+				await saveOrphanBlocks(orderedBlocksANDOrphans.orphans);
 			}
 		
 			saveLastBlock(orderedBlocksANDOrphans.ordered[orderedBlocksANDOrphans.ordered.length - 1])
@@ -66,6 +66,7 @@ async function blockConverter() {
                         await new Promise((resolve) => setTimeout(resolve, 1000));
 		}
 		addLogs("Converter stopped by user.", Date.now());
+		parentPort?.postMessage('stoped');
 	} catch (e: any) {
 		addLogs(e, Date.now());
 		throw new Error(e);
