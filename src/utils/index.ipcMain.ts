@@ -281,10 +281,8 @@ async function deleteOrphansDir(path: string): Promise<void> {
 				if(e){
 					reject(e)
 				} else {
-					const emptyArr: any[] = [];
-					const arr = JSON.stringify(emptyArr, null, 2);
 					data.forEach((val)=>{
-						writeFileSync(`${path}/${val}`, arr, 'utf8')
+						unlinkSync(`${path}/${val}`);
 					})
 				}
 			});

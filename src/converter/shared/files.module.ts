@@ -3,6 +3,7 @@ import { appConfig } from "../../data/config.interface";
 import * as path from "path";
 import { addLogs } from "../../utils/logs.write";
 import { parsedBlock as BLK, parsedTransaction as pTransaction, parsedTxOutput as pTxOutput, iTxOutputData, parsedTxInput as pTxInput } from "../blcks/blk.interface";
+import { unlinkSync } from "original-fs";
 
 const MAX_FILE_SIZE = 450 * 1024 * 1024; // 450 MB
 
@@ -86,7 +87,7 @@ export function getOrphans(): BLK[] {
 			orphansFilesBlocks.push(...pFile);
 		})
 
-		return orphansFilesBlocks
+		return orphansFilesBlocks !== undefined ? orphansFilesBlocks : [];
 	} catch(e: any){
 		addLogs("Cannot read orphan blocks files", Date.now());
 		throw new Error(e);
@@ -123,8 +124,26 @@ export function saveOrderedBlocks(blocks: BLK[], fileName: string): void{
 
 export function saveOrphanBlocks(orphans: BLK[]): void {
 	try {
-		if(getOrphans().length === 0){
+		const oldOrphans = getOrphans();
+		// dodac polaczenie podanych blokow orphanicznych i wyeliminowanie duplikatów
+		const allOrphans: BLK[] = [...orphans, ...oldOrphans]
+		const config = getConfig();
+		const strOrphans = JSON.stringify(allOrphans);
+		const strSize = Buffer.byteLength(strOrphans, 'utf8');
+		deleteAllOrphans(config.orphanBlocksPath);
+		if(strSize <= MAX_FILE_SIZE){
+			writeFileSync(`${config.orphanBlocksPath}/orphans-1.json`, strOrphans, 'utf8');
+			return;
+		}
 
+		const numPartitions = Math.ceil(strSize / MAX_FILE_SIZE) + 1;
+		const indexes = Math.ceil(allOrphans.length / numPartitions) + 1;
+		for(let i = 0; i < numPartitions; i ++){
+			const start = i * indexes;
+			const end = (i + 1) * indexes;
+			const partition = allOrphans.slice(start, end);
+			const strPartition = JSON.stringify(partition);
+			writeFileSync(`${config.orphanBlocksPath}/orphans-${i + 1}.json`, strPartition, 'utf8');
 		}
 	} catch(e: any){
 		addLogs("Cannot save orphans blocks files", Date.now());
@@ -138,5 +157,17 @@ export function removeFileExtension(fileName: string): string {
 		return fileName.slice(0, dot);
 	} else {
 		return fileName;
+	}
+}
+
+function deleteAllOrphans(orphansPath: string): void {
+	try {
+		const orphanFiles = readdirSync(orphansPath);
+		orphanFiles.forEach((val)=>{
+			unlinkSync(`${orphansPath}/${val}`);
+		})
+	} catch(e: any){
+		addLogs("Cannot delete orphan files", Date.now());
+		throw new Error(e);
 	}
 }

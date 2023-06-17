@@ -1,8 +1,8 @@
 import { Worker, parentPort } from "node:worker_threads";
 import { Block, Transaction as Tx, TxInput, TxOutput } from "bitcoinjs-lib";
-import { getConfig, getBlkFiles, setNewConfig } from "../shared/files.module";
+import { getConfig, getBlkFiles, setNewConfig, saveOrderedBlocks, saveOrphanBlocks, saveLastBlock } from "../shared/files.module";
 import { addLogs } from "../../utils/logs.write";
-import { readBlocksFromBitcoinFile } from "./blk.module";
+import { readBlocksFromBitcoinFile, setBlockOrder } from "./blk.module";
 import * as path from "path";
 import { converterToSaverData as DATA} from './blk.interface';
 
@@ -47,13 +47,20 @@ async function blockConverter() {
 			config.parsedBlocksFiles.push(filesToConvert[0]);
 			setNewConfig(config);
 
-			const workerPath = path.join(__dirname, "blk.saver.js");
-			const saverWorker = new Worker(workerPath);
-			const data: DATA = {
-				blocks: parsedData,
-				fileName: filesToConvert[0]
+			addLogs("Ordering blocks by hash...", Date.now());
+			const orderedBlocksANDOrphans = setBlockOrder(parsedData);
+			
+			addLogs("Writing blocks data to files", Date.now());
+			saveOrderedBlocks(orderedBlocksANDOrphans.ordered, filesToConvert[0]);
+		
+			if(orderedBlocksANDOrphans.orphans){
+				addLogs("Writing orphan blocks data to files", Date.now());
+				saveOrphanBlocks(orderedBlocksANDOrphans.orphans);
 			}
-			saverWorker.postMessage(data);
+		
+			saveLastBlock(orderedBlocksANDOrphans.ordered[orderedBlocksANDOrphans.ordered.length - 1])
+			
+			addLogs(`Blocks from height ${orderedBlocksANDOrphans.ordered[0].height} to ${orderedBlocksANDOrphans.ordered[orderedBlocksANDOrphans.ordered.length - 1].height} saved.`, Date.now());
 
                         // gives time for this thread to check if work = false because It cannot be readed while thread is constantly full
                         await new Promise((resolve) => setTimeout(resolve, 1000));
